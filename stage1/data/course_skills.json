@@ -1,0 +1,464 @@
+[
+  {
+    "source_id": "15-090",
+    "source_type": "course",
+    "skill_name": "Technical Writing",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-090",
+    "source_type": "course",
+    "skill_name": "Reflection And Self-Assessment",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-090",
+    "source_type": "course",
+    "skill_name": "Internship Experience",
+    "weight": 0.75
+  },
+  {
+    "source_id": "15-090",
+    "source_type": "course",
+    "skill_name": "Curriculum Development",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-090",
+    "source_type": "course",
+    "skill_name": "Problem Solving",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-090",
+    "source_type": "course",
+    "skill_name": "Application Of Cs Concepts",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Sequencing",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Selection",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Iteration",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Recursion",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Arrays",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Lists",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Abstraction",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Data Representation",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Computer Organization",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Computer Networks",
+    "weight": 0.6
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Functional Decomposition",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Divide And Conquer",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Randomness",
+    "weight": 0.6
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Concurrency",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Problem-Solving",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-110",
+    "source_type": "course",
+    "skill_name": "Computational Thinking",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Python",
+    "weight": 0.95
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Top-Down Design",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Informal Analysis",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Testing",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Debugging",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Python",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Standalone Program Development",
+    "weight": 0.75
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Shell Scripting",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Web-Based Application Development",
+    "weight": 0.75
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Code Clarity",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Code Robustness",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-112",
+    "source_type": "course",
+    "skill_name": "Code Efficiency",
+    "weight": 0.75
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Java",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Linked Lists",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Stacks",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Queues",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Trees",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Graphs",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Algorithm Analysis",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Program Design",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-121",
+    "source_type": "course",
+    "skill_name": "Program Analysis",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 0.95
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Program Correctness Verification",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Algorithm Design",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Data Structures",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Management",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Loop Implementation",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Array Handling",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Function Design",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Problem Solving",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-122",
+    "source_type": "course",
+    "skill_name": "Logical Reasoning",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-150",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 1.0
+  },
+  {
+    "source_id": "15-150",
+    "source_type": "course",
+    "skill_name": "Algebraic Modeling",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-150",
+    "source_type": "course",
+    "skill_name": "Higher-Order Functions",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-150",
+    "source_type": "course",
+    "skill_name": "Data Types Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Logic",
+    "weight": 0.95
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Set Theory",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Mathematical Induction",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Functions (Discrete)",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Combinatorics",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Mathematical Proof",
+    "weight": 0.95
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Collaboration",
+    "weight": 0.7
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Formal Argumentation",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-151",
+    "source_type": "course",
+    "skill_name": "Experimental Problem Solving",
+    "weight": 0.75
+  },
+  {
+    "source_id": "15-195",
+    "source_type": "course",
+    "skill_name": "Algorithms",
+    "weight": 0.95
+  },
+  {
+    "source_id": "15-195",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-195",
+    "source_type": "course",
+    "skill_name": "Debugging",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-195",
+    "source_type": "course",
+    "skill_name": "Problem Solving",
+    "weight": 0.9
+  },
+  {
+    "source_id": "15-195",
+    "source_type": "course",
+    "skill_name": "Management",
+    "weight": 0.8
+  },
+  {
+    "source_id": "15-195",
+    "source_type": "course",
+    "skill_name": "Teamwork",
+    "weight": 0.85
+  },
+  {
+    "source_id": "15-195",
+    "source_type": "course",
+    "skill_name": "Programming",
+    "weight": 0.95
+  }
+]

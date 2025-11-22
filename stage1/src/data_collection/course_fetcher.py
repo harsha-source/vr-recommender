@@ -30,8 +30,14 @@ class CMUCourseFetcher:
         if FirecrawlApp is None:
             raise ImportError("firecrawl-py not installed. Run: pip install firecrawl-py")
 
+        # Initialize Firecrawl client (new v2 API)
         self.client = FirecrawlApp(api_key=self.api_key)
-        self.base_url = "https://www.cmu.edu/hub/registrar/course-schedule/"
+        # Try multiple URLs for course catalog
+        self.urls = [
+            "https://csd.cmu.edu/academics/courses",  # CS courses
+            "https://coursecatalog.web.cmu.edu/",     # General catalog
+            "https://www.heinz.cmu.edu/academic-programs/courses",  # Heinz College
+        ]
 
     def fetch_courses(self, semester: str = "current") -> List[Course]:
         """
@@ -45,62 +51,63 @@ class CMUCourseFetcher:
         """
         print(f"Fetching CMU courses for {semester}...")
 
-        try:
-            # Scrape the course schedule page
-            result = self.client.scrape_url(
-                self.base_url,
-                params={
-                    "formats": ["markdown", "html"],
-                    "wait_for": "networkidle"
-                }
-            )
+        # Try multiple URLs until we find course data
+        for url in self.urls:
+            try:
+                print(f"  Trying: {url}")
+                result = self.client.scrape(
+                    url=url,
+                    formats=["markdown", "html"],
+                    wait_for=5  # Wait for page to load
+                )
 
-            if not result or not result.get('content'):
-                print("⚠ No content received from Firecrawl")
-                return []
+                if result and (result.markdown or result.html):
+                    print(f"  ✓ Success! Got content from {url}")
 
-            # Parse the courses from the scraped content
-            courses = self._parse_courses(result)
+                    # Parse the courses from the scraped content
+                    courses = self._parse_courses(result, url)
 
-            print(f"✓ Fetched {len(courses)} courses")
-            return courses
+                    if courses:
+                        print(f"  ✓ Parsed {len(courses)} courses")
+                        return courses
 
-        except Exception as e:
-            print(f"❌ Error fetching courses: {e}")
-            import traceback
-            traceback.print_exc()
-            return []
+            except Exception as e:
+                print(f"  ⚠ Error scraping {url}: {e}")
+                continue
 
-    def _parse_courses(self, result: Dict) -> List[Course]:
+        print("⚠ No course data found from any URL")
+        return []
+
+    def _parse_courses(self, result, url: str) -> List[Course]:
         """
         Parse courses from Firecrawl result
 
         Args:
-            result: Firecrawl result containing scraped content
+            result: Firecrawl Document object with markdown/html attributes
+            url: URL that was scraped
 
         Returns:
             List[Course]: Parsed course list
         """
         courses = []
-        content = result.get('content', '')
 
         # Try multiple parsing strategies
 
         # Strategy 1: Parse markdown if available
-        if 'markdown' in result:
-            courses = self._parse_markdown_courses(result['markdown'])
+        if hasattr(result, 'markdown') and result.markdown:
+            courses = self._parse_markdown_courses(result.markdown)
 
-        # Strategy 2: Parse HTML
-        if 'html' in result and not courses:
-            courses = self._parse_html_courses(result['html'])
+        # Strategy 2: Parse HTML if markdown didn't work
+        if not courses and hasattr(result, 'html') and result.html:
+            courses = self._parse_html_courses(result.html)
 
-        # Strategy 3: Parse from content text
-        if not courses:
-            courses = self._parse_text_courses(content)
+        # Strategy 3: Parse from markdown as plain text
+        if not courses and result.markdown:
+            courses = self._parse_text_courses(result.markdown)
 
         # Strategy 4: Try to extract from any structured data
-        if not courses:
-            courses = self._extract_structured_courses(content)
+        if not courses and result.html:
+            courses = self._extract_structured_courses(result.html)
 
         return courses
 

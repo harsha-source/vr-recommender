@@ -1,0 +1,660 @@
+[
+  {
+    "name": "Technical Writing",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Reflection And Self-Assessment",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Internship Experience",
+    "aliases": [],
+    "category": "domain",
+    "source_count": 1,
+    "weight": 0.75
+  },
+  {
+    "name": "Curriculum Development",
+    "aliases": [
+      "Curriculum Integration"
+    ],
+    "category": "domain",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Problem Solving",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 3,
+    "weight": 0.9
+  },
+  {
+    "name": "Application Of Cs Concepts",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Sequencing",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Selection",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Iteration",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Recursion",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Arrays",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Lists",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Abstraction",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Data Representation",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Computer Organization",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Computer Networks",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.6
+  },
+  {
+    "name": "Functional Decomposition",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Programming",
+    "aliases": [
+      "Application Programming Interfaces (APIs)",
+      "Programming paradigms",
+      "Object-Oriented Programming",
+      "Imperative Programming",
+      "C Programming",
+      "Functional Programming",
+      "Competitive Programming"
+    ],
+    "category": "domain",
+    "source_count": 8,
+    "weight": 1.0
+  },
+  {
+    "name": "Divide And Conquer",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Randomness",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.6
+  },
+  {
+    "name": "Concurrency",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Problem-Solving",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Computational Thinking",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Python",
+    "aliases": [
+      "Standard libraries (Python)"
+    ],
+    "category": "technical",
+    "source_count": 2,
+    "weight": 0.95
+  },
+  {
+    "name": "Top-Down Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Informal Analysis",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Testing",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Debugging",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 2,
+    "weight": 0.9
+  },
+  {
+    "name": "Standalone Program Development",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.75
+  },
+  {
+    "name": "Shell Scripting",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Web-Based Application Development",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.75
+  },
+  {
+    "name": "Code Clarity",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Code Robustness",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Code Efficiency",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.75
+  },
+  {
+    "name": "Java",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Linked Lists",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Stacks",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Queues",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Trees",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Graphs",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Algorithm Analysis",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Program Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Program Analysis",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Program Correctness Verification",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Algorithm Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Data Structures",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Management",
+    "aliases": [
+      "Variable Management",
+      "Time Management"
+    ],
+    "category": "soft",
+    "source_count": 2,
+    "weight": 0.8
+  },
+  {
+    "name": "Loop Implementation",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Array Handling",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Function Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "Logical Reasoning",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Algebraic Modeling",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Higher-Order Functions",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Data Types Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Logic",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.95
+  },
+  {
+    "name": "Set Theory",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Mathematical Induction",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Functions (Discrete)",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Combinatorics",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Mathematical Proof",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.95
+  },
+  {
+    "name": "Collaboration",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 3,
+    "weight": 0.7
+  },
+  {
+    "name": "Formal Argumentation",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Experimental Problem Solving",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.75
+  },
+  {
+    "name": "Algorithms",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.95
+  },
+  {
+    "name": "Teamwork",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Interactive Learning",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 8,
+    "weight": 0.85
+  },
+  {
+    "name": "Educational Content Development",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 7,
+    "weight": 0.8
+  },
+  {
+    "name": "3D Visualizations",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 8,
+    "weight": 0.9
+  },
+  {
+    "name": "Immersive Experience Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 4,
+    "weight": 0.85
+  },
+  {
+    "name": "Education",
+    "aliases": [
+      "Education technology (EdTech)",
+      "Education Technology (EdTech)",
+      "Virtual reality (VR) education",
+      "Anatomy education",
+      "Education technology",
+      "STEM education"
+    ],
+    "category": "domain",
+    "source_count": 8,
+    "weight": 0.95
+  },
+  {
+    "name": "Virtual Reality (Vr) Applications",
+    "aliases": [],
+    "category": "domain",
+    "source_count": 4,
+    "weight": 0.9
+  },
+  {
+    "name": "Student Engagement",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 6,
+    "weight": 0.75
+  },
+  {
+    "name": "Communication",
+    "aliases": [
+      "Educational communication"
+    ],
+    "category": "soft",
+    "source_count": 3,
+    "weight": 0.8
+  },
+  {
+    "name": "Virtual Reality (Vr) Development",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 2,
+    "weight": 0.9
+  },
+  {
+    "name": "3D Visualization",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 2,
+    "weight": 0.85
+  },
+  {
+    "name": "Interactive Learning Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 2,
+    "weight": 0.8
+  },
+  {
+    "name": "User Experience",
+    "aliases": [
+      "User Experience (UX) Design"
+    ],
+    "category": "technical",
+    "source_count": 2,
+    "weight": 0.75
+  },
+  {
+    "name": "Instructional Design",
+    "aliases": [
+      "Teaching / Instructional Design"
+    ],
+    "category": "soft",
+    "source_count": 2,
+    "weight": 0.8
+  },
+  {
+    "name": "Art History",
+    "aliases": [],
+    "category": "domain",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Educational Technology (Edtech)",
+    "aliases": [],
+    "category": "domain",
+    "source_count": 2,
+    "weight": 0.9
+  },
+  {
+    "name": "Immersive Learning",
+    "aliases": [],
+    "category": "domain",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Immersive Learning Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 3,
+    "weight": 0.85
+  },
+  {
+    "name": "Educational Facilitation",
+    "aliases": [],
+    "category": "domain",
+    "source_count": 3,
+    "weight": 0.8
+  },
+  {
+    "name": "Human Anatomy",
+    "aliases": [],
+    "category": "domain",
+    "source_count": 1,
+    "weight": 0.95
+  },
+  {
+    "name": "Educator Collaboration",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.6
+  },
+  {
+    "name": "Educational Content Design",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 3,
+    "weight": 0.8
+  },
+  {
+    "name": "Immersive Learning Experiences",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "User Engagement",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.7
+  },
+  {
+    "name": "User-Centered Design",
+    "aliases": [],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.75
+  },
+  {
+    "name": "Chemistry",
+    "aliases": [],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  }
+]

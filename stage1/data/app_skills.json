@@ -1,0 +1,476 @@
+[
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.7
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "Educational Content Development",
+    "weight": 0.8
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "Immersive Experience Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.9
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "Virtual Reality (Vr) Applications",
+    "weight": 0.9
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "Student Engagement",
+    "weight": 0.7
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "app",
+    "skill_name": "Communication",
+    "weight": 0.8
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "Virtual Reality (Vr) Development",
+    "weight": 0.9
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "3D Visualization",
+    "weight": 0.85
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "Interactive Learning Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "Educational Content Development",
+    "weight": 0.8
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "User Experience",
+    "weight": 0.75
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "Communication",
+    "weight": 0.7
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "Instructional Design",
+    "weight": 0.75
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "Art History",
+    "weight": 0.9
+  },
+  {
+    "source_id": "VR_Museum_Art_Through_Time",
+    "source_type": "app",
+    "skill_name": "Educational Technology (Edtech)",
+    "weight": 0.85
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "Virtual Reality (Vr) Development",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "3D Visualization",
+    "weight": 0.85
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "Interactive Learning Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "Educational Content Development",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "User Experience",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "Communication",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "Collaboration",
+    "weight": 0.65
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Origami_Dojo",
+    "source_type": "app",
+    "skill_name": "Immersive Learning",
+    "weight": 0.85
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.85
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "Educational Content Development",
+    "weight": 0.8
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "Immersive Learning Design",
+    "weight": 0.85
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "Student Engagement",
+    "weight": 0.75
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "Educational Facilitation",
+    "weight": 0.8
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "Human Anatomy",
+    "weight": 0.95
+  },
+  {
+    "source_id": "VEDAVI_VR_Human_Anatomy",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.9
+  },
+  {
+    "source_id": "3D_Organon_VR_Anatomy",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "3D_Organon_VR_Anatomy",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.8
+  },
+  {
+    "source_id": "3D_Organon_VR_Anatomy",
+    "source_type": "app",
+    "skill_name": "Educational Content Development",
+    "weight": 0.7
+  },
+  {
+    "source_id": "3D_Organon_VR_Anatomy",
+    "source_type": "app",
+    "skill_name": "Immersive Learning Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "3D_Organon_VR_Anatomy",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.9
+  },
+  {
+    "source_id": "3D_Organon_VR_Anatomy",
+    "source_type": "app",
+    "skill_name": "Student Engagement",
+    "weight": 0.7
+  },
+  {
+    "source_id": "3D_Organon_VR_Anatomy",
+    "source_type": "app",
+    "skill_name": "Educational Facilitation",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "Educational Content Development",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "Immersive Learning Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "Educational Technology (Edtech)",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "Virtual Reality (Vr) Applications",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "Student Engagement",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Mission_ISS",
+    "source_type": "app",
+    "skill_name": "Educator Collaboration",
+    "weight": 0.6
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "Educational Content Design",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "Immersive Learning Experiences",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "User Engagement",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "Collaboration",
+    "weight": 0.6
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Babel_VR",
+    "source_type": "app",
+    "skill_name": "Virtual Reality (Vr) Applications",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Unimersiv",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.85
+  },
+  {
+    "source_id": "Unimersiv",
+    "source_type": "app",
+    "skill_name": "Educational Content Development",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Unimersiv",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Unimersiv",
+    "source_type": "app",
+    "skill_name": "Immersive Experience Design",
+    "weight": 0.85
+  },
+  {
+    "source_id": "Unimersiv",
+    "source_type": "app",
+    "skill_name": "User-Centered Design",
+    "weight": 0.75
+  },
+  {
+    "source_id": "Unimersiv",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Unimersiv",
+    "source_type": "app",
+    "skill_name": "Virtual Reality (Vr) Applications",
+    "weight": 0.9
+  },
+  {
+    "source_id": "MEL_Science_VR",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.85
+  },
+  {
+    "source_id": "MEL_Science_VR",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "MEL_Science_VR",
+    "source_type": "app",
+    "skill_name": "Educational Content Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "MEL_Science_VR",
+    "source_type": "app",
+    "skill_name": "Immersive Experience Design",
+    "weight": 0.85
+  },
+  {
+    "source_id": "MEL_Science_VR",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.95
+  },
+  {
+    "source_id": "MEL_Science_VR",
+    "source_type": "app",
+    "skill_name": "Student Engagement",
+    "weight": 0.75
+  },
+  {
+    "source_id": "MEL_Science_VR",
+    "source_type": "app",
+    "skill_name": "Instructional Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "Interactive Learning",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "3D Visualizations",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "Educational Content Design",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "Immersive Experience Design",
+    "weight": 0.8
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "Education",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "Chemistry",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "Student Engagement",
+    "weight": 0.7
+  },
+  {
+    "source_id": "Chemistry_Lab",
+    "source_type": "app",
+    "skill_name": "Educational Facilitation",
+    "weight": 0.8
+  }
+]
