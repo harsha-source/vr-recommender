@@ -6,7 +6,7 @@
 (function() {
     function init() {
     // Configuration - UPDATE THIS WITH YOUR DEPLOYED BACKEND URL
-    const CHATBOT_API_URL = 'http://localhost:5000/chat'; // Change to your deployed Flask API URL
+    const CHATBOT_API_URL = 'http://localhost:5001/chat'; // Change to your deployed Flask API URL
     const WIDGET_POSITION = 'bottom-right'; // Options: 'bottom-right', 'bottom-left'
     
     // Create container
@@ -201,25 +201,6 @@
             30% { transform: translateY(-10px); }
         }
         
-        .cmu-vr-quick-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
-        }
-        .cmu-vr-quick-action {
-            background: #f0f0f0;
-            border: 1px solid #ddd;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .cmu-vr-quick-action:hover {
-            background: #e0e0e0;
-            border-color: #c41230;
-        }
     `;
     document.head.appendChild(style);
     
@@ -246,17 +227,9 @@
                     <div class="cmu-vr-message-content">
                         Hi! I'm your Heinz College VR Learning Assistant! 🎓
                         
-I can help you find:
-• VR apps for your learning goals
-• Relevant Heinz College courses
-• Personalized recommendations
+I can help you find VR apps for your learning goals using our advanced RAG system.
 
-What would you like to learn about?
-                        <div class="cmu-vr-quick-actions">
-                            <div class="cmu-vr-quick-action" onclick="window.cmuVRChatbot.sendQuickMessage('Machine learning and policy')">🤖 ML & Policy</div>
-                            <div class="cmu-vr-quick-action" onclick="window.cmuVRChatbot.sendQuickMessage('Data analytics')">📊 Data Analytics</div>
-                            <div class="cmu-vr-quick-action" onclick="window.cmuVRChatbot.sendQuickMessage('Cybersecurity')">🔒 Cybersecurity</div>
-                        </div>
+Simply tell me what you'd like to learn about (e.g., "machine learning for public policy", "data visualization", "Python programming")
                     </div>
                 </div>
             </div>
@@ -404,13 +377,6 @@ What would you like to learn about?
         return div;
     }
     
-    // Expose quick message function globally
-    window.cmuVRChatbot = {
-        sendQuickMessage: function(message) {
-            chatInput.value = message;
-            sendMessage();
-        }
-    };
         // end of init
     }
     if (document.readyState === 'loading') {
