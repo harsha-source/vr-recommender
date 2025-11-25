@@ -13,7 +13,7 @@ except ImportError:
     print("Warning: tavily not installed. Install with: pip install tavily-python")
     TavilyClient = None
 
-from src.models import VRApp
+from data_collection.src.models import VRApp
 
 
 class VRAppFetcherImproved:

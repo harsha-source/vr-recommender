@@ -14,7 +14,7 @@ except ImportError:
     print("Warning: firecrawl not installed. Install with: pip install firecrawl-py")
     FirecrawlApp = None
 
-from src.models import Course
+from data_collection.src.models import Course
 
 
 class CMUCourseFetcherImproved:
@@ -98,9 +98,9 @@ class CMUCourseFetcherImproved:
             "62": "College of Fine Arts",
         }
 
-    def fetch_courses(self, max_courses: int = 100, use_extracted_codes: bool = True) -> List[Course]:
+    def fetch_courses(self, max_courses: int = 100, use_extracted_codes: bool = True, department: str = None, semester: str = "f25") -> List[Course]:
         """
-        Fetch CMU courses from ALL departments
+        Fetch CMU courses from ALL departments or a specific department
 
         Strategy:
         1. Load course codes from file (if use_extracted_codes=True) or extract from catalogs
@@ -111,11 +111,32 @@ class CMUCourseFetcherImproved:
         Args:
             max_courses: Maximum number of courses to fetch (set to 999999 for ALL)
             use_extracted_codes: If True, load course codes from all_cmu_courses.txt file
+            department: Optional department name to filter by (e.g., "School of Computer Science")
+            semester: Semester code for detail pages (e.g., "f25", "s26")
 
         Returns:
             List[Course]: List of Course objects
         """
         print(f"Fetching CMU courses (max: {max_courses if max_courses < 999999 else 'ALL'})...")
+        if department:
+            print(f"Filter: Department = '{department}'")
+        print(f"Filter: Semester = '{semester}'")
+
+        # Step 0: Filter catalogs if department specified
+        target_catalogs = self.department_catalogs
+        if department:
+            # Simple string matching
+            target_catalogs = [
+                (name, url) for name, url in self.department_catalogs 
+                if department.lower() in name.lower()
+            ]
+            if not target_catalogs:
+                print(f"⚠ Warning: No catalog found matching '{department}'. Using all.")
+                target_catalogs = self.department_catalogs
+            
+            # If filtering by department, we MUST extract fresh codes from that catalog
+            # We cannot rely on the pre-generated all_cmu_courses.txt which mixes everything
+            use_extracted_codes = False
 
         # Step 1: Get course codes
         if use_extracted_codes:
@@ -134,12 +155,10 @@ class CMUCourseFetcherImproved:
 
         if not use_extracted_codes:
             # Extract from department catalogs (uses API credits)
-            print(f"Scanning {len(self.department_catalogs)} department catalogs...")
-            print(f"Note: Only CS (15-XXX) has working detail pages.")
-            print(f"      Other depts return basic info (no detail scraping).")
-
+            print(f"Scanning {len(target_catalogs)} department catalogs...")
+            
             all_course_codes = []
-            for dept_name, url in self.department_catalogs:
+            for dept_name, url in target_catalogs:
                 print(f"\n  [{dept_name}] Extracting from catalog page...")
                 course_codes = self._extract_course_codes_from_catalog(url)
                 if course_codes:
@@ -175,7 +194,8 @@ class CMUCourseFetcherImproved:
         for i, code in enumerate(all_course_codes, 1):
             print(f"  [{i}/{len(all_course_codes)}] Processing {code}...", end=" ")
 
-            course = self._scrape_course_detail(code)
+            # Pass the semester to scrape detail
+            course = self._scrape_course_detail(code, semester)
             if course:
                 courses.append(course)
                 detail_success_count += 1
@@ -265,13 +285,14 @@ class CMUCourseFetcherImproved:
             print(f"    ❌ Error: {e}")
             return []
 
-    def _scrape_course_detail(self, course_code: str) -> Course:
+    def _scrape_course_detail(self, course_code: str, semester: str = "f25") -> Course:
         """
         Scrape individual course detail page
         ONLY attempts to scrape if the department has working detail pages
 
         Args:
             course_code: Course code like "15-112" or "15104"
+            semester: Semester code (e.g., "f25", "s26")
 
         Returns:
             Course: Parsed Course object or None if failed/no detail page available
@@ -287,7 +308,23 @@ class CMUCourseFetcherImproved:
         # Construct detail page URL based on department pattern
         code_no_dash = course_code.replace('-', '')
         url_pattern = self.detail_url_patterns.get(prefix)
-        url = url_pattern.format(code_no_dash)
+        
+        # Handle semester dynamic replacement
+        # The pattern is: "https://csd.cmu.edu/course/{}/f25" -> we need to replace f25 too
+        # Easier: reconstruct the URL template here or update self.detail_url_patterns to take 2 args
+        # Current pattern in __init__: "https://csd.cmu.edu/course/{}/f25"
+        
+        # Let's replace the hardcoded /f25 part if it exists in the pattern, or better, 
+        # assume the pattern was meant to be flexible.
+        # Since I can't easily change __init__ pattern without breaking other things, 
+        # I'll do a string replacement here.
+        
+        base_url = url_pattern.format(code_no_dash)
+        # Replace default 'f25' with requested semester if different
+        if semester != "f25":
+            base_url = base_url.replace("f25", semester)
+            
+        url = base_url
 
         try:
             result = self.client.scrape(

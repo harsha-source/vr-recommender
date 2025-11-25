@@ -5,10 +5,14 @@ Returns ONLY VR app recommendations (NO course recommendations)
 
 from flask import Flask, request, jsonify, send_file, make_response
 from flask_cors import CORS
+from dotenv import load_dotenv
 import os
 import sys
 import uuid
 import time
+
+# Load environment variables
+load_dotenv()
 
 # Make local imports work when running directly
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -16,6 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 # ⬇️ Use the LLM-based recommender
 from vr_recommender import HeinzVRLLMRecommender, StudentQuery
 from src.logging_service import InteractionLogger
+from src.data_manager import JobManager
 
 app = Flask(__name__)
 CORS(app)
@@ -27,11 +32,15 @@ print("=" * 70)
 # Initialize services
 recommender = None
 interaction_logger = None
+data_manager = None
 
 try:
     print("\n🔄 Initializing Services...")
     interaction_logger = InteractionLogger()
     print("✓ Database Logger ready")
+    
+    data_manager = JobManager()
+    print("✓ Data Manager ready")
     
     # Requires Neo4j, ChromaDB, and OPENROUTER_API_KEY
     recommender = HeinzVRLLMRecommender()
@@ -57,16 +66,6 @@ def home():
         )
 
 
-@app.route("/admin", methods=["GET"])
-def admin_dashboard():
-    """Serve the Admin Dashboard."""
-    print("\n📊 GET /admin - Serving Dashboard")
-    try:
-        return send_file("admin_dashboard.html", mimetype="text/html")
-    except Exception as e:
-        return jsonify({"error": f"Dashboard not found: {e}"}), 404
-
-
 @app.route("/health", methods=["GET"])
 def health():
     """Health check"""
@@ -74,7 +73,8 @@ def health():
         {
             "status": "healthy", 
             "recommender": "ready" if recommender else "unavailable",
-            "database": "ready" if interaction_logger else "unavailable"
+            "database": "ready" if interaction_logger else "unavailable",
+            "data_manager": "ready" if data_manager else "unavailable"
         }
     )
 
@@ -208,6 +208,60 @@ def admin_stats():
         stats = interaction_logger.get_admin_stats()
         return jsonify(stats)
     return jsonify({"error": "Logger unavailable"}), 503
+
+
+@app.route("/api/admin/data/status", methods=["GET"])
+def data_status():
+    """Get data file status and current job info."""
+    if data_manager:
+        return jsonify(data_manager.get_data_stats())
+    return jsonify({"error": "Data Manager unavailable"}), 503
+
+@app.route("/api/admin/data/update/courses", methods=["POST"])
+def update_courses():
+    """Trigger course update job."""
+    if not data_manager:
+        return jsonify({"error": "Data Manager unavailable"}), 503
+        
+    params = request.get_json(silent=True) or {}
+    result = data_manager.start_update_job("courses", params)
+    
+    if "error" in result:
+        return jsonify(result), 409 # Conflict
+    return jsonify(result), 202 # Accepted
+
+@app.route("/api/admin/data/update/apps", methods=["POST"])
+def update_apps():
+    """Trigger VR app update job."""
+    if not data_manager:
+        return jsonify({"error": "Data Manager unavailable"}), 503
+        
+    params = request.get_json(silent=True) or {}
+    result = data_manager.start_update_job("vr_apps", params)
+    
+    if "error" in result:
+        return jsonify(result), 409
+    return jsonify(result), 202
+
+# --------------------------- Admin Pages --------------------------- #
+
+@app.route("/admin", methods=["GET"])
+def admin_dashboard():
+    """Serve the Admin Dashboard."""
+    print("\n📊 GET /admin - Serving Dashboard")
+    try:
+        return send_file("admin_dashboard.html", mimetype="text/html")
+    except Exception as e:
+        return jsonify({"error": f"Dashboard not found: {e}"}), 404
+
+@app.route("/admin/data", methods=["GET"])
+def admin_data():
+    """Serve the Data Management Dashboard."""
+    print("\n📊 GET /admin/data - Serving Data Dashboard")
+    try:
+        return send_file("admin_data.html", mimetype="text/html")
+    except Exception as e:
+        return jsonify({"error": f"Data Dashboard not found: {e}"}), 404
 
 
 # --------------------------- Helpers --------------------------- #
