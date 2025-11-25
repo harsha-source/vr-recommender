@@ -25,7 +25,7 @@ class LLMRanker:
             api_key=os.getenv("OPENROUTER_API_KEY"),
             base_url="https://openrouter.ai/api/v1"
         )
-        self.model = os.getenv("OPENROUTER_MODEL", "qwen/qwen3-30b-a3b")
+        self.model = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-001")
 
     def rank_and_explain(self, query: str, apps: List[Dict]) -> List[Dict]:
         """
@@ -51,18 +51,18 @@ class LLMRanker:
             
         app_list = "\n".join(app_items)
 
-        prompt = f"""用户查询: "{query}"
+        prompt = f"""User Query: "{query}"
 
-候选 VR 应用:
+Candidate VR Apps:
 {app_list}
 
-请为每个应用生成一句简短的推荐理由（说明为什么这个应用适合用户的学习需求）。
-如果应用有 [Note: ...]，请在推荐理由中结合该信息解释（例如："虽然没有直接匹配，但因为它涉及..."）。
+Please generate a short reasoning for each app explaining why it fits the user's learning needs.
+If an app has [Note: ...], incorporate that context into the reasoning (e.g., "Indirect match via...").
 
-返回 JSON 格式:
+Return JSON format:
 {{
     "rankings": [
-        {{"name": "App Name", "reasoning": "推荐理由"}},
+        {{"name": "App Name", "reasoning": "Reasoning text in English"}},
         ...
     ]
 }}"""
@@ -71,7 +71,7 @@ class LLMRanker:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "你是一个 VR 学习应用推荐专家。只返回 JSON。"},
+                    {"role": "system", "content": "You are an expert VR application recommender. Return JSON only. Output must be in English."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.3,
@@ -126,11 +126,11 @@ class LLMRanker:
         Returns:
             One-sentence understanding of the query
         """
-        prompt = f"""分析以下学习查询，用一句话总结用户想要学习什么:
+        prompt = f"""Analyze the following learning query and summarize what the user wants to learn in one sentence:
 
 "{query}"
 
-直接返回总结，不要其他内容。"""
+Return the summary directly, no other text. Output in English."""
 
         try:
             response = self.client.chat.completions.create(
