@@ -42,10 +42,14 @@ class LLMRanker:
             return []
 
         # Build prompt
-        app_list = "\n".join([
-            f"- {app['name']} ({app['category']}): matches {', '.join(app['matched_skills'])}"
-            for app in apps
-        ])
+        app_items = []
+        for app in apps:
+            info = f"- {app['name']} ({app['category']}): matches {', '.join(app['matched_skills'])}"
+            if app.get("retrieval_source") == "semantic_bridge":
+                info += f" [Note: {app.get('bridge_explanation', 'Indirect match')}]"
+            app_items.append(info)
+            
+        app_list = "\n".join(app_items)
 
         prompt = f"""用户查询: "{query}"
 
@@ -53,6 +57,7 @@ class LLMRanker:
 {app_list}
 
 请为每个应用生成一句简短的推荐理由（说明为什么这个应用适合用户的学习需求）。
+如果应用有 [Note: ...]，请在推荐理由中结合该信息解释（例如："虽然没有直接匹配，但因为它涉及..."）。
 
 返回 JSON 格式:
 {{

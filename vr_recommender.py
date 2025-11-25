@@ -77,6 +77,8 @@ class HeinzVRLLMRecommender:
                 "likeliness_score": round(min(1.0, app.score / max_score), 2),
                 "category": app.category,
                 "reasoning": app.reasoning,
+                "retrieval_source": app.retrieval_source,
+                "bridge_explanation": app.bridge_explanation
             })
 
         return apps

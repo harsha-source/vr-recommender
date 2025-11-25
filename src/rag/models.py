@@ -13,6 +13,8 @@ class VRAppMatch:
     score: float
     matched_skills: List[str]
     reasoning: str
+    retrieval_source: str = "direct"
+    bridge_explanation: str = ""
 
 
 @dataclass

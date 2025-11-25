@@ -57,7 +57,9 @@ class RAGService:
                 category=app["category"],
                 score=app["score"],
                 matched_skills=app["matched_skills"],
-                reasoning=app["reasoning"]
+                reasoning=app["reasoning"],
+                retrieval_source=app.get("retrieval_source", "direct"),
+                bridge_explanation=app.get("bridge_explanation", "")
             ))
 
         return RecommendationResult(
