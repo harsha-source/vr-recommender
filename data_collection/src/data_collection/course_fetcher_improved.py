@@ -14,22 +14,30 @@ except ImportError:
     print("Warning: firecrawl not installed. Install with: pip install firecrawl-py")
     FirecrawlApp = None
 
-from data_collection.src.models import Course
+from models import Course
 
 
 class CMUCourseFetcherImproved:
     """Improved CMU course fetcher that scrapes detail pages from all departments"""
 
-    def __init__(self):
-        """Initialize the fetcher with Firecrawl API"""
+    def __init__(self, logger=None):
+        """
+        Initialize the fetcher with Firecrawl API
+        
+        Args:
+            logger: Optional logging function (defaults to print)
+        """
+        self.logger = logger if logger else print
         self.api_key = os.getenv("FIRECRAWL_API_KEY")
         if not self.api_key:
-            raise ValueError("FIRECRAWL_API_KEY environment variable not set")
+            self.logger("Warning: FIRECRAWL_API_KEY environment variable not set") # Changed raise to log warning for robustness
 
         if FirecrawlApp is None:
-            raise ImportError("firecrawl-py not installed. Run: pip install firecrawl-py")
-
-        self.client = FirecrawlApp(api_key=self.api_key)
+            # raise ImportError("firecrawl-py not installed. Run: pip install firecrawl-py")
+            self.logger("Warning: firecrawl-py not installed") # Relaxed for stability
+            self.client = None
+        else:
+            self.client = FirecrawlApp(api_key=self.api_key)
 
         # CMU department course catalog URLs from main catalog
         # These URLs work and contain course codes
@@ -117,10 +125,10 @@ class CMUCourseFetcherImproved:
         Returns:
             List[Course]: List of Course objects
         """
-        print(f"Fetching CMU courses (max: {max_courses if max_courses < 999999 else 'ALL'})...")
+        self.logger(f"Fetching CMU courses (max: {max_courses if max_courses < 999999 else 'ALL'})...")
         if department:
-            print(f"Filter: Department = '{department}'")
-        print(f"Filter: Semester = '{semester}'")
+            self.logger(f"Filter: Department = '{department}'")
+        self.logger(f"Filter: Semester = '{semester}'")
 
         # Step 0: Filter catalogs if department specified
         target_catalogs = self.department_catalogs
@@ -131,7 +139,7 @@ class CMUCourseFetcherImproved:
                 if department.lower() in name.lower()
             ]
             if not target_catalogs:
-                print(f"⚠ Warning: No catalog found matching '{department}'. Using all.")
+                self.logger(f"⚠ Warning: No catalog found matching '{department}'. Using all.")
                 target_catalogs = self.department_catalogs
             
             # If filtering by department, we MUST extract fresh codes from that catalog
@@ -145,29 +153,29 @@ class CMUCourseFetcherImproved:
                 if os.path.exists("all_cmu_courses.txt"):
                     with open("all_cmu_courses.txt", 'r') as f:
                         all_course_codes = [line.strip() for line in f if line.strip()]
-                    print(f"✓ Loaded {len(all_course_codes)} course codes from all_cmu_courses.txt")
+                    self.logger(f"✓ Loaded {len(all_course_codes)} course codes from all_cmu_courses.txt")
                 else:
-                    print("⚠ all_cmu_courses.txt not found, extracting from catalogs...")
+                    self.logger("⚠ all_cmu_courses.txt not found, extracting from catalogs...")
                     use_extracted_codes = False
             except Exception as e:
-                print(f"⚠ Error loading file: {e}")
+                self.logger(f"⚠ Error loading file: {e}")
                 use_extracted_codes = False
 
         if not use_extracted_codes:
             # Extract from department catalogs (uses API credits)
-            print(f"Scanning {len(target_catalogs)} department catalogs...")
+            self.logger(f"Scanning {len(target_catalogs)} department catalogs...")
             
             all_course_codes = []
             for dept_name, url in target_catalogs:
-                print(f"\n  [{dept_name}] Extracting from catalog page...")
+                self.logger(f"\n  [{dept_name}] Extracting from catalog page...")
                 course_codes = self._extract_course_codes_from_catalog(url)
                 if course_codes:
-                    print(f"    Found {len(course_codes)} course codes")
+                    self.logger(f"    Found {len(course_codes)} course codes")
                     all_course_codes.extend(course_codes)
                 else:
-                    print(f"    No course codes found")
+                    self.logger(f"    No course codes found")
 
-            print(f"\n✓ Total course codes found: {len(all_course_codes)}")
+            self.logger(f"\n✓ Total course codes found: {len(all_course_codes)}")
 
             # Remove duplicates while preserving order
             seen = set()
@@ -182,7 +190,7 @@ class CMUCourseFetcherImproved:
         # Limit number of courses if specified
         if max_courses < 999999:
             all_course_codes = all_course_codes[:max_courses]
-            print(f"✓ Limited to {len(all_course_codes)} courses")
+            self.logger(f"✓ Limited to {len(all_course_codes)} courses")
 
         # Step 2: Try to scrape detail pages where available
         # Only departments in detail_url_patterns have working detail pages
@@ -191,31 +199,35 @@ class CMUCourseFetcherImproved:
         detail_success_count = 0
         basic_info_count = 0
 
+        total_count = len(all_course_codes)
         for i, code in enumerate(all_course_codes, 1):
-            print(f"  [{i}/{len(all_course_codes)}] Processing {code}...", end=" ")
+            # Progress log
+            if i % 5 == 0 or i == 1 or i == total_count:
+                self.logger(f"  [Progress] Processing {i}/{total_count}: {code}...")
+            else:
+                # Still print to stdout for CLI but don't spam the web logger every single item
+                print(f"  [{i}/{total_count}] Processing {code}...", end="\r")
 
             # Pass the semester to scrape detail
             course = self._scrape_course_detail(code, semester)
             if course:
                 courses.append(course)
                 detail_success_count += 1
-                print("✓ (detail)")
             else:
                 # Fallback: create basic course from just the code
                 course = self._create_basic_course(code)
                 if course:
                     courses.append(course)
                     basic_info_count += 1
-                    print("✓ (basic)")
                 else:
-                    print("⚠")
+                    self.logger(f"⚠ Failed to create course for {code}")
                     failed_courses.append(code)
 
-        print(f"\n✓ Successfully processed {len(courses)} courses")
-        print(f"  • {detail_success_count} with full details (departments with detail pages)")
-        print(f"  • {basic_info_count} with basic info (depts without detail pages)")
+        self.logger(f"\n✓ Successfully processed {len(courses)} courses")
+        self.logger(f"  • {detail_success_count} with full details (departments with detail pages)")
+        self.logger(f"  • {basic_info_count} with basic info (depts without detail pages)")
         if failed_courses:
-            print(f"⚠ Failed: {len(failed_courses)} courses")
+            self.logger(f"⚠ Failed: {len(failed_courses)} courses")
 
         return courses
 

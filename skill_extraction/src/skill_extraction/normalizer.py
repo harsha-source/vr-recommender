@@ -250,9 +250,11 @@ class SkillNormalizer:
             return self.alias_map[cleaned]
 
         # Check for whole word matches in alias map (more precise)
-        words = re.findall(r'\b\w+\b', cleaned)
-
-        for alias, standard in self.alias_map.items():
+        # Sort aliases by length descending to prevent greedy matching of short terms
+        # e.g. match "Python Programming" before "Programming"
+        sorted_aliases = sorted(self.alias_map.items(), key=lambda x: len(x[0]), reverse=True)
+        
+        for alias, standard in sorted_aliases:
             # Skip very short aliases (like "r") to avoid false matches
             if len(alias) < 2:
                 continue

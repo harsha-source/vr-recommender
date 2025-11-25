@@ -243,6 +243,32 @@ def update_apps():
         return jsonify(result), 409
     return jsonify(result), 202
 
+@app.route("/api/admin/data/process/skills", methods=["POST"])
+def process_skills():
+    """Trigger skill extraction job."""
+    if not data_manager:
+        return jsonify({"error": "Data Manager unavailable"}), 503
+        
+    params = request.get_json(silent=True) or {}
+    result = data_manager.start_update_job("skills", params)
+    
+    if "error" in result:
+        return jsonify(result), 409
+    return jsonify(result), 202
+
+@app.route("/api/admin/data/process/graph", methods=["POST"])
+def process_graph():
+    """Trigger knowledge graph build job."""
+    if not data_manager:
+        return jsonify({"error": "Data Manager unavailable"}), 503
+        
+    params = request.get_json(silent=True) or {}
+    result = data_manager.start_update_job("graph", params)
+    
+    if "error" in result:
+        return jsonify(result), 409
+    return jsonify(result), 202
+
 # --------------------------- Admin Pages --------------------------- #
 
 @app.route("/admin", methods=["GET"])

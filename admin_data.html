@@ -145,6 +145,60 @@
         </div>
     </div>
 
+    <!-- Processing Pipeline -->
+    <h5 class="mb-3">Processing Pipeline</h5>
+    <div class="row mb-4">
+        <!-- Skill Extraction -->
+        <div class="col-md-6">
+            <div class="card mb-3 border-info">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title"><i class="bi bi-lightbulb me-2"></i>Skill Extraction</h5>
+                        <span id="skill-status-dot" class="status-dot status-warn"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="text-muted">Total Skills</small>
+                            <h3 id="skill-count">-</h3>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted">Last Updated</small>
+                            <p id="skill-updated" class="mb-0 fw-bold">-</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-grid gap-2">
+                         <button class="btn btn-info text-white" onclick="processSkills()">
+                            <i class="bi bi-cpu me-1"></i>Extract Skills (Semantic)
+                        </button>
+                    </div>
+                    <small class="text-muted mt-2 d-block">Uses LLM & Embeddings to extract and deduplicate skills.</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Knowledge Graph -->
+        <div class="col-md-6">
+            <div class="card mb-3 border-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title"><i class="bi bi-diagram-3 me-2"></i>Knowledge Graph</h5>
+                        <!-- Placeholder for graph status if we had a file to check -->
+                        <span class="status-dot status-ok"></span> 
+                    </div>
+                    <p class="text-muted">Rebuilds the Neo4j graph from JSON data.</p>
+                    <hr>
+                    <div class="d-grid gap-2">
+                         <button class="btn btn-success" onclick="processGraph()">
+                            <i class="bi bi-share me-1"></i>Rebuild Knowledge Graph
+                        </button>
+                    </div>
+                    <small class="text-muted mt-2 d-block"><b>Warning:</b> Clears existing database before building.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Live Job Console -->
     <div class="card">
         <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
@@ -181,6 +235,14 @@
             document.getElementById('app-count').textContent = a.count || 0;
             document.getElementById('app-updated').textContent = a.last_updated || 'Never';
             document.getElementById('app-status-dot').className = `status-dot ${a.exists ? 'status-ok' : 'status-err'}`;
+
+            // Update Skills
+            if (data.skills) {
+                const s = data.skills;
+                document.getElementById('skill-count').textContent = s.count || 0;
+                document.getElementById('skill-updated').textContent = s.last_updated || 'Never';
+                document.getElementById('skill-status-dot').className = `status-dot ${s.exists ? 'status-ok' : 'status-err'}`;
+            }
 
             // Update Job Status
             if (data.job) {
@@ -238,6 +300,16 @@
     async function updateApps() {
         if (!confirm("Start VR app update?")) return;
         triggerJob(`${BASE_URL}/update/apps`, { categories: ["education", "training", "productivity"] });
+    }
+
+    async function processSkills() {
+        if (!confirm("Start Skill Extraction? This uses LLM APIs and may take time.")) return;
+        triggerJob(`${BASE_URL}/process/skills`, { top_n: null }); // null = ALL
+    }
+
+    async function processGraph() {
+        if (!confirm("Rebuild Knowledge Graph? This will CLEAR the database first.")) return;
+        triggerJob(`${BASE_URL}/process/graph`, { clear: true });
     }
 
     async function triggerJob(url, body) {

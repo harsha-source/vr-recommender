@@ -11,11 +11,19 @@ from concurrent.futures import ThreadPoolExecutor
 import sys
 # Add project root to path to allow imports from data_collection
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Add module source directories to path
+sys.path.insert(0, os.path.join(project_root, "data_collection", "src"))
+sys.path.insert(0, os.path.join(project_root, "skill_extraction", "src"))
+sys.path.insert(0, os.path.join(project_root, "knowledge_graph", "src"))
+
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from data_collection.src.data_collection.course_fetcher_improved import CMUCourseFetcherImproved
-from data_collection.src.data_collection.vr_app_fetcher_improved import VRAppFetcherImproved
+from data_collection.course_fetcher_improved import CMUCourseFetcherImproved
+from data_collection.vr_app_fetcher_improved import VRAppFetcherImproved
+from skill_extraction.pipeline import SkillExtractionPipeline
+from knowledge_graph.builder import KnowledgeGraphBuilder
 
 class JobManager:
     """Manages background data update jobs."""
@@ -34,7 +42,8 @@ class JobManager:
         """Get stats about data files."""
         stats = {
             "courses": self._get_file_info("courses.json"),
-            "vr_apps": self._get_file_info("vr_apps.json")
+            "vr_apps": self._get_file_info("vr_apps.json"),
+            "skills": self._get_file_info("skills.json") # Added skills stats
         }
         
         # Add job status
@@ -107,6 +116,10 @@ class JobManager:
                 self._update_courses(params)
             elif job_type == "vr_apps":
                 self._update_vr_apps(params)
+            elif job_type == "skills":
+                self._extract_skills(params)
+            elif job_type == "graph":
+                self._build_graph(params)
             else:
                 self._log(f"Unknown job type: {job_type}")
                 
@@ -120,6 +133,44 @@ class JobManager:
             import traceback
             traceback.print_exc()
 
+    def _extract_skills(self, params: Dict[str, Any]):
+        """Run skill extraction pipeline."""
+        top_n = params.get("top_n")
+        self._log(f"Starting Skill Extraction (Top N: {top_n if top_n else 'ALL'})...")
+        
+        courses_path = os.path.join(self.data_dir, "courses.json")
+        apps_path = os.path.join(self.data_dir, "vr_apps.json")
+        
+        try:
+            # Inject logger
+            pipeline = SkillExtractionPipeline(logger=self._log)
+            
+            self._log("Processing courses and apps...")
+            pipeline.run(courses_path, apps_path, self.data_dir, top_n=top_n)
+            
+            self._log("Skill extraction complete.")
+            self._log(f"Results saved to {self.data_dir}")
+            
+        except Exception as e:
+            raise e
+
+    def _build_graph(self, params: Dict[str, Any]):
+        """Run knowledge graph builder."""
+        clear_db = params.get("clear", True)
+        self._log(f"Starting Graph Build (Clear DB: {clear_db})...")
+        
+        try:
+            # Inject logger
+            builder = KnowledgeGraphBuilder(logger=self._log)
+            
+            self._log("Building graph in Neo4j...")
+            builder.build(data_dir=self.data_dir, clear=clear_db)
+            
+            self._log("Graph build complete.")
+            
+        except Exception as e:
+            raise e
+
     def _update_courses(self, params: Dict[str, Any]):
         """Update course data."""
         limit = params.get("limit", 100) # Default limit
@@ -128,15 +179,9 @@ class JobManager:
         
         self._log(f"Initializing Course Fetcher (Limit: {limit}, Dept: {department}, Term: {semester})...")
         
-        # Redirect print to our log
-        original_print = print
-        
-        # Custom print hook? 
-        # Easier to just call the methods and manually log progress for now
-        # since capturing stdout is tricky across threads/processes cleanly in simple scripts
-        
         try:
-            fetcher = CMUCourseFetcherImproved()
+            # Inject logger
+            fetcher = CMUCourseFetcherImproved(logger=self._log)
             
             # Use the fetcher
             self._log("Fetching courses from CMU catalog...")
@@ -157,9 +202,6 @@ class JobManager:
             save_path = os.path.join(self.data_dir, "courses.json")
             fetcher.save_courses(courses, path=save_path)
             self._log(f"Saved to {save_path}")
-            
-            # Update Knowledge Graph? (Optional / Next Step)
-            # self._rebuild_knowledge_graph() 
             
         except Exception as e:
             raise e
