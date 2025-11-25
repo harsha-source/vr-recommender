@@ -143,8 +143,11 @@ class CMUCourseFetcherImproved:
                 target_catalogs = self.department_catalogs
             
             # If filtering by department, we MUST extract fresh codes from that catalog
-            # We cannot rely on the pre-generated all_cmu_courses.txt which mixes everything
             use_extracted_codes = False
+
+        # Data structure to hold course info: code -> description
+        course_descriptions = {}
+        all_course_codes = []
 
         # Step 1: Get course codes
         if use_extracted_codes:
@@ -165,13 +168,17 @@ class CMUCourseFetcherImproved:
             # Extract from department catalogs (uses API credits)
             self.logger(f"Scanning {len(target_catalogs)} department catalogs...")
             
-            all_course_codes = []
             for dept_name, url in target_catalogs:
                 self.logger(f"\n  [{dept_name}] Extracting from catalog page...")
-                course_codes = self._extract_course_codes_from_catalog(url)
-                if course_codes:
-                    self.logger(f"    Found {len(course_codes)} course codes")
-                    all_course_codes.extend(course_codes)
+                extracted_data = self._extract_course_data_from_catalog(url)
+                if extracted_data:
+                    self.logger(f"    Found {len(extracted_data)} courses")
+                    for item in extracted_data:
+                        code = item['code']
+                        all_course_codes.append(code)
+                        # Store description if meaningful
+                        if item.get('description') and len(item['description']) > 20:
+                            course_descriptions[code] = item['description']
                 else:
                     self.logger(f"    No course codes found")
 
@@ -205,7 +212,6 @@ class CMUCourseFetcherImproved:
             if i % 5 == 0 or i == 1 or i == total_count:
                 self.logger(f"  [Progress] Processing {i}/{total_count}: {code}...")
             else:
-                # Still print to stdout for CLI but don't spam the web logger every single item
                 print(f"  [{i}/{total_count}] Processing {code}...", end="\r")
 
             # Pass the semester to scrape detail
@@ -215,7 +221,10 @@ class CMUCourseFetcherImproved:
                 detail_success_count += 1
             else:
                 # Fallback: create basic course from just the code
-                course = self._create_basic_course(code)
+                # Try to get description from catalog scrape
+                catalog_desc = course_descriptions.get(code)
+                
+                course = self._create_basic_course(code, description=catalog_desc)
                 if course:
                     courses.append(course)
                     basic_info_count += 1
@@ -257,14 +266,19 @@ class CMUCourseFetcherImproved:
         return unique_codes
 
     def _extract_course_codes_from_catalog(self, catalog_url: str) -> List[str]:
+        """Legacy wrapper for backward compatibility"""
+        data = self._extract_course_data_from_catalog(catalog_url)
+        return [item['code'] for item in data]
+
+    def _extract_course_data_from_catalog(self, catalog_url: str) -> List[Dict[str, str]]:
         """
-        Extract course codes from a department catalog page
+        Extract course codes AND descriptions from a department catalog page
 
         Args:
             catalog_url: The department's course catalog URL
 
         Returns:
-            List of course codes from this department
+            List of dicts: [{'code': '15-112', 'description': '...'}]
         """
         try:
             result = self.client.scrape(
@@ -274,27 +288,66 @@ class CMUCourseFetcherImproved:
             )
 
             if not result or not result.markdown:
-                print(f"    ⚠ No content received")
+                self.logger(f"    ⚠ No content received")
                 return []
 
             markdown = result.markdown
+            
+            # CMU Catalog format typically looks like:
+            # ### 15-112 Fundamentals of Programming
+            # ... (metadata) ...
+            # Description text...
+            
+            # Regex to capture code + title + description block
+            # Looks for "XX-XXX" followed by text, until the next "XX-XXX" or end of section
+            
+            courses_data = []
+            
+            # Split by course headers (roughly)
+            # Pattern: Line starting with course code XX-XXX
+            # Note: Markdown often puts headers like '### 15-112'
+            
+            # Robust split: Find all indices of course codes
+            # Pattern: 2 digits - 3 digits at start of line or after ###
+            code_pattern = r'(?:^|###\s*)(\d{2}-\d{3})'
+            
+            # We'll iterate through lines to associate descriptions with codes
+            lines = markdown.split('\n')
+            current_code = None
+            current_desc_buffer = []
+            
+            for line in lines:
+                line = line.strip()
+                if not line: continue
+                
+                match = re.search(code_pattern, line)
+                if match:
+                    # Save previous course
+                    if current_code:
+                        desc = " ".join(current_desc_buffer).strip()
+                        # Filter out metadata lines (Units:, Prerequisites:) if they got caught
+                        # Simple heuristic: take the longest sentence-like part or the whole thing
+                        courses_data.append({'code': current_code, 'description': desc})
+                    
+                    # Start new course
+                    current_code = match.group(1)
+                    current_desc_buffer = []
+                elif current_code:
+                    # Append to current description
+                    # Skip obvious metadata lines often found in catalog
+                    if any(line.startswith(x) for x in ['Units:', 'Prerequisites:', 'Corequisites:', 'Gen Ed:', 'Min. grade']):
+                        continue
+                    current_desc_buffer.append(line)
+            
+            # Save last course
+            if current_code:
+                desc = " ".join(current_desc_buffer).strip()
+                courses_data.append({'code': current_code, 'description': desc})
 
-            # Extract all course codes in format XX-XXX
-            course_pattern = r'\b(\d{2}-\d{3})\b'
-            matches = re.findall(course_pattern, markdown)
-
-            # Remove duplicates while preserving order
-            seen = set()
-            unique_codes = []
-            for code in matches:
-                if code not in seen:
-                    seen.add(code)
-                    unique_codes.append(code)
-
-            return unique_codes
+            return courses_data
 
         except Exception as e:
-            print(f"    ❌ Error: {e}")
+            self.logger(f"    ❌ Error: {e}")
             return []
 
     def _scrape_course_detail(self, course_code: str, semester: str = "f25") -> Course:
@@ -322,17 +375,7 @@ class CMUCourseFetcherImproved:
         url_pattern = self.detail_url_patterns.get(prefix)
         
         # Handle semester dynamic replacement
-        # The pattern is: "https://csd.cmu.edu/course/{}/f25" -> we need to replace f25 too
-        # Easier: reconstruct the URL template here or update self.detail_url_patterns to take 2 args
-        # Current pattern in __init__: "https://csd.cmu.edu/course/{}/f25"
-        
-        # Let's replace the hardcoded /f25 part if it exists in the pattern, or better, 
-        # assume the pattern was meant to be flexible.
-        # Since I can't easily change __init__ pattern without breaking other things, 
-        # I'll do a string replacement here.
-        
         base_url = url_pattern.format(code_no_dash)
-        # Replace default 'f25' with requested semester if different
         if semester != "f25":
             base_url = base_url.replace("f25", semester)
             
@@ -507,24 +550,28 @@ class CMUCourseFetcherImproved:
 
         return self.department_mappings.get(prefix, 'CMU')
 
-    def _create_basic_course(self, course_code: str) -> Course:
+    def _create_basic_course(self, course_code: str, description: str = None) -> Course:
         """
         Create a basic Course object when detail page scraping fails
         Used for departments without working detail pages
 
         Args:
             course_code: Course code like "15-112"
+            description: Optional description text extracted from catalog
 
         Returns:
             Course: Basic Course object with just code and inferred department
         """
         department = self._infer_department(course_code)
+        
+        if not description:
+            description = "Course description not available. This course was found in the CMU course catalog but detailed information could not be extracted."
 
         return Course(
             course_id=course_code,
             title=f"Course {course_code}",
             department=department,
-            description="Course description not available. This course was found in the CMU course catalog but detailed information could not be extracted.",
+            description=description,
             units=12,
             prerequisites=[],
             learning_outcomes=[]
