@@ -84,6 +84,7 @@ main() {
 
     # 3. 设置 Python 环境
     export PYTHONPATH="$(pwd):$(pwd)/stage3:$(pwd)/stage4"
+    export PORT=5001
 
     # 4. 启动 Flask API (在端口 5001)
     log_info "启动 Flask API on 端口 5001..."

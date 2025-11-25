@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Recommender - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f4f6f9; }
+        .card { border: none; shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .metric-card { background: white; border-radius: 10px; padding: 20px; }
+        .metric-value { font-size: 2rem; font-weight: bold; color: #2c3e50; }
+        .metric-label { color: #7f8c8d; font-size: 0.9rem; }
+        .log-table td { vertical-align: middle; }
+        .intent-badge { font-size: 0.8rem; }
+        .refresh-btn { cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 5px; max-height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">
+            <i class="bi bi-shield-lock me-2"></i>Heinz VR Admin Dashboard
+        </span>
+        <button class="btn btn-outline-light btn-sm" onclick="fetchData()">
+            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+        </button>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <!-- Metrics Row -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="metric-card shadow-sm">
+                <div class="metric-label">Total Interactions</div>
+                <div class="metric-value" id="total-interactions">-</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card shadow-sm">
+                <div class="metric-label">Unique Users</div>
+                <div class="metric-value" id="unique-users">-</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="metric-card shadow-sm">
+                <div class="metric-label">Top Intents</div>
+                <div id="top-intents" class="mt-2">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logs Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Live Interaction Logs</h5>
+            <div>
+                 <input type="text" id="user-filter" class="form-control form-control-sm d-inline-block w-auto" placeholder="Filter by User ID" onchange="fetchData()">
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 log-table">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Time</th>
+                            <th>User</th>
+                            <th>Intent</th>
+                            <th>Query</th>
+                            <th>Response Preview</th>
+                            <th>Latency</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-body">
+                        <tr><td colspan="7" class="text-center py-4">Loading logs...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer bg-white text-end">
+            <small class="text-muted">Showing latest 50 logs</small>
+        </div>
+    </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Interaction Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>User Query</h6>
+                <p id="modal-query" class="p-2 bg-light border rounded"></p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>User ID</h6>
+                        <code id="modal-user"></code>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Timestamp</h6>
+                        <span id="modal-time"></span>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <h6>Response Text</h6>
+                <p id="modal-response" class="small text-muted" style="white-space: pre-wrap;"></p>
+                
+                <h6>Recommended Apps</h6>
+                <pre id="modal-apps"></pre>
+                
+                <h6>Metadata</h6>
+                <pre id="modal-meta"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const BASE_URL = "http://localhost:5001";
+    let refreshInterval;
+
+    async function fetchData() {
+        const userFilter = document.getElementById('user-filter').value;
+        
+        try {
+            // Fetch Stats
+            const statsRes = await fetch(`${BASE_URL}/api/admin/stats`);
+            const stats = await statsRes.json();
+            
+            document.getElementById('total-interactions').textContent = stats.total_interactions;
+            document.getElementById('unique-users').textContent = stats.unique_users;
+            
+            const intentsHtml = stats.top_intents.map(i => 
+                `<span class="badge bg-secondary me-1">${i[0]} (${i[1]})</span>`
+            ).join('');
+            document.getElementById('top-intents').innerHTML = intentsHtml || '<span class="text-muted">No data</span>';
+
+            // Fetch Logs
+            let logUrl = `${BASE_URL}/api/admin/logs?limit=50`;
+            if (userFilter) logUrl += `&user_id=${userFilter}`;
+            
+            const logsRes = await fetch(logUrl);
+            const logsData = await logsRes.json();
+            renderLogs(logsData.logs);
+            
+        } catch (err) {
+            console.error("Fetch error:", err);
+        }
+    }
+
+    function renderLogs(logs) {
+        const tbody = document.getElementById('logs-body');
+        if (!logs || logs.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No logs found</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = logs.map(log => {
+            const meta = JSON.parse(log.metadata || '{}');
+            const latency = meta.latency_ms ? `${meta.latency_ms}ms` : '-';
+            
+            const intentColors = {
+                'recommendation': 'success',
+                'greeting': 'info',
+                'help': 'warning'
+            };
+            const badgeColor = intentColors[log.intent] || 'secondary';
+            
+            // Truncate ID and Query
+            const shortUser = log.user_id.substring(0, 8) + '...';
+            const shortQuery = log.query_text.length > 30 ? log.query_text.substring(0, 30) + '...' : log.query_text;
+            const shortResp = log.response_text ? log.response_text.substring(0, 40) + '...' : '-';
+
+            return `
+                <tr onclick='showDetails(${JSON.stringify(log).replace(/'/g, "&#39;")})' style="cursor:pointer">
+                    <td class="small text-muted">${new Date(log.timestamp).toLocaleTimeString()}</td>
+                    <td><code title="${log.user_id}">${shortUser}</code></td>
+                    <td><span class="badge bg-${badgeColor} intent-badge">${log.intent}</span></td>
+                    <td class="fw-bold text-dark">${shortQuery}</td>
+                    <td class="text-muted small">${shortResp}</td>
+                    <td class="small">${latency}</td>
+                    <td><button class="btn btn-sm btn-light"><i class="bi bi-eye"></i></button></td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function showDetails(log) {
+        document.getElementById('modal-query').textContent = log.query_text;
+        document.getElementById('modal-user').textContent = log.user_id;
+        document.getElementById('modal-time').textContent = new Date(log.timestamp).toLocaleString();
+        document.getElementById('modal-response').textContent = log.response_text;
+        
+        try {
+            const apps = JSON.parse(log.recommended_apps || '[]');
+            document.getElementById('modal-apps').textContent = JSON.stringify(apps, null, 2);
+        } catch(e) {
+            document.getElementById('modal-apps').textContent = log.recommended_apps;
+        }
+        
+        try {
+            const meta = JSON.parse(log.metadata || '{}');
+            document.getElementById('modal-meta').textContent = JSON.stringify(meta, null, 2);
+        } catch(e) {
+            document.getElementById('modal-meta').textContent = log.metadata;
+        }
+
+        const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+        modal.show();
+    }
+
+    // Initial Load
+    fetchData();
+    // Auto refresh every 10s
+    refreshInterval = setInterval(fetchData, 10000);
+</script>
+
+</body>
+</html>

@@ -6,10 +6,10 @@ import os
 # Add src to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 
-from stage3.src.knowledge_graph.connection import Neo4jConnection
-from stage3.src.knowledge_graph.schema import KnowledgeGraphSchema
-from stage3.src.knowledge_graph.nodes import NodeCreator
-from stage3.src.knowledge_graph.relationships import RelationshipCreator
+from knowledge_graph.src.knowledge_graph.connection import Neo4jConnection
+from knowledge_graph.src.knowledge_graph.schema import KnowledgeGraphSchema
+from knowledge_graph.src.knowledge_graph.nodes import NodeCreator
+from knowledge_graph.src.knowledge_graph.relationships import RelationshipCreator
 
 
 class KnowledgeGraphBuilder:

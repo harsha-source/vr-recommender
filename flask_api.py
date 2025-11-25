@@ -3,16 +3,19 @@ Flask API for OpenRouter LLM-based VR App Recommender (Heinz College)
 Returns ONLY VR app recommendations (NO course recommendations)
 """
 
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, make_response
 from flask_cors import CORS
 import os
 import sys
+import uuid
+import time
 
 # Make local imports work when running directly
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # ⬇️ Use the LLM-based recommender
 from vr_recommender import HeinzVRLLMRecommender, StudentQuery
+from src.logging_service import InteractionLogger
 
 app = Flask(__name__)
 CORS(app)
@@ -21,10 +24,15 @@ print("\n" + "=" * 70)
 print("INITIALIZING HEINZ RAG VR APP RECOMMENDER")
 print("=" * 70)
 
-# Initialize recommender
+# Initialize services
 recommender = None
+interaction_logger = None
+
 try:
-    print("\n🔄 Initializing RAG-based VR recommender...")
+    print("\n🔄 Initializing Services...")
+    interaction_logger = InteractionLogger()
+    print("✓ Database Logger ready")
+    
     # Requires Neo4j, ChromaDB, and OPENROUTER_API_KEY
     recommender = HeinzVRLLMRecommender()
     print("✓ RAG VR Recommender ready!")
@@ -49,11 +57,25 @@ def home():
         )
 
 
+@app.route("/admin", methods=["GET"])
+def admin_dashboard():
+    """Serve the Admin Dashboard."""
+    print("\n📊 GET /admin - Serving Dashboard")
+    try:
+        return send_file("admin_dashboard.html", mimetype="text/html")
+    except Exception as e:
+        return jsonify({"error": f"Dashboard not found: {e}"}), 404
+
+
 @app.route("/health", methods=["GET"])
 def health():
     """Health check"""
     return jsonify(
-        {"status": "healthy", "recommender": "ready" if recommender else "unavailable"}
+        {
+            "status": "healthy", 
+            "recommender": "ready" if recommender else "unavailable",
+            "database": "ready" if interaction_logger else "unavailable"
+        }
     )
 
 
@@ -71,10 +93,24 @@ def chat():
     print("\n" + "=" * 70)
     print("📨 NEW CHAT REQUEST")
     print("=" * 70)
+    
+    start_time = time.time()
+
+    # 1. Identify User
+    user_id = request.cookies.get('user_id')
+    if not user_id:
+        user_id = str(uuid.uuid4())
+        print(f"👤 New User detected: {user_id}")
+    else:
+        print(f"👤 Returning User: {user_id}")
 
     try:
         data = request.get_json(silent=True) or {}
         message = (data.get("message") or "").strip()
+        
+        # Determine session (optional, for now just re-use user_id or generate new per chat load)
+        # Simple approach: We consider this a single session unless the frontend sends a session ID.
+        session_id = data.get("session_id") or user_id
 
         print(f"💬 Message: '{message}'")
 
@@ -89,58 +125,89 @@ def chat():
                 }
             )
 
-        if not is_supported_learning_query(message):
-            return jsonify({
-                "response": "This assistant only provides VR app recommendations for learning topics (e.g., cybersecurity, data analytics, programming).",
-                "type": "error"
-            }), 200
-        # Parse simple intent for UX niceties
+        # Parse simple intent
         intent = parse_user_intent(message)
         print(f"🎯 Intent: {intent}")
 
+        response_text = ""
+        recommended_apps = []
+        
         if intent == "greeting":
-            response = generate_greeting_response()
-            return jsonify({"response": response, "type": "success"})
+            response_text = generate_greeting_response()
+        
+        elif intent == "help":
+            response_text = generate_help_response()
 
-        if intent == "help":
-            response = generate_help_response()
-            return jsonify({"response": response, "type": "success"})
-
-       
-
-        # Otherwise: recommendation path
-        print("→ Extracting query data (hints for LLM)…")
-        query_data = extract_query_data(message)
-        interests = query_data.get("interests", [])
-        background = query_data.get("background", "Heinz College student")
-
-        print(f"   Extracted interests: {interests}")
-        print(f"   Background: {background}")
-
-        student_query = StudentQuery(query=message, interests=interests, background=background)
-
-        print("\n🔄 Calling recommender.generate_recommendation()…")
-        result = recommender.generate_recommendation(student_query)
-
-        vr_apps = result.get("vr_apps", [])
-        print(f"✓ Got {len(vr_apps)} VR apps")
-        if vr_apps:
-            print("   Top apps:")
-            for app in vr_apps[:3]:
-                print(f"     • {app['app_name']} ({app['likeliness_score']*100:.0f}%)")
         else:
-            print("   ⚠ NO APPS RETURNED!")
+            # Recommendation path
+            print("→ Extracting query data (hints for LLM)…")
+            query_data = extract_query_data(message)
+            interests = query_data.get("interests", [])
+            background = query_data.get("background", "Heinz College student")
 
-        response = format_vr_response(result)
+            student_query = StudentQuery(query=message, interests=interests, background=background)
+
+            print("\n🔄 Calling recommender.generate_recommendation()…")
+            result = recommender.generate_recommendation(student_query)
+
+            recommended_apps = result.get("vr_apps", [])
+            print(f"✓ Got {len(recommended_apps)} VR apps")
+            
+            response_text = format_vr_response(result)
+
+        # Calculate Latency
+        latency_ms = round((time.time() - start_time) * 1000, 2)
+
+        # 2. Log Interaction
+        if interaction_logger:
+            interaction_logger.log_interaction(
+                user_id=user_id,
+                session_id=session_id,
+                query=message,
+                response=response_text,
+                intent=intent,
+                recommended_apps=recommended_apps,
+                metadata={"latency_ms": latency_ms, "source": "web_chat"}
+            )
+
+        # 3. Send Response (with Cookie)
         print("✅ Sending response\n")
-        return jsonify({"response": response, "type": "success"})
+        json_resp = jsonify({"response": response_text, "type": "success", "user_id": user_id})
+        resp = make_response(json_resp)
+        
+        # Set cookie to persist user identity for 30 days
+        resp.set_cookie('user_id', user_id, max_age=60*60*24*30, samesite='Lax')
+        
+        return resp
 
     except Exception as e:
         print(f"❌ Error: {e}")
         import traceback
-
         traceback.print_exc()
         return jsonify({"response": f"Error: {str(e)}", "type": "error"}), 500
+
+
+# --------------------------- Admin API --------------------------- #
+
+@app.route("/api/admin/logs", methods=["GET"])
+def admin_logs():
+    """Get paginated interaction logs."""
+    limit = int(request.args.get('limit', 50))
+    offset = int(request.args.get('offset', 0))
+    user_filter = request.args.get('user_id')
+    
+    if interaction_logger:
+        logs = interaction_logger.get_admin_logs(limit, offset, user_filter)
+        return jsonify({"logs": logs, "count": len(logs)})
+    return jsonify({"error": "Logger unavailable"}), 503
+
+@app.route("/api/admin/stats", methods=["GET"])
+def admin_stats():
+    """Get system stats."""
+    if interaction_logger:
+        stats = interaction_logger.get_admin_stats()
+        return jsonify(stats)
+    return jsonify({"error": "Logger unavailable"}), 503
 
 
 # --------------------------- Helpers --------------------------- #

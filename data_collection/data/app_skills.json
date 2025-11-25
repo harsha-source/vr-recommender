@@ -472,5 +472,17 @@
     "source_type": "app",
     "skill_name": "Educational Facilitation",
     "weight": 0.8
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "vr_app",
+    "skill_name": "Programming",
+    "weight": 0.9
+  },
+  {
+    "source_id": "InMind",
+    "source_type": "vr_app",
+    "skill_name": "Python",
+    "weight": 0.8
   }
 ]
