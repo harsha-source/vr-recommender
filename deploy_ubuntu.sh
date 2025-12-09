@@ -47,6 +47,24 @@ log_info "Waiting for services to stabilize (10s)..."
 sleep 10
 
 # 4. Initialize Data
+log_info "Waiting for Neo4j to be ready..."
+MAX_RETRIES=30
+COUNT=0
+while [ $COUNT -lt $MAX_RETRIES ]; do
+    if docker exec vr-recommender python -c "import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.connect(('neo4j', 7687)); s.close()" 2>/dev/null; then
+        log_info "Neo4j is ready!"
+        break
+    fi
+    log_warn "Neo4j not ready yet... retrying ($((COUNT+1))/$MAX_RETRIES)"
+    sleep 2
+    COUNT=$((COUNT+1))
+done
+
+if [ $COUNT -eq $MAX_RETRIES ]; then
+    log_error "Timed out waiting for Neo4j."
+    exit 1
+fi
+
 log_info "Initializing Knowledge Graph (Neo4j)..."
 docker exec -it vr-recommender python scripts/build_graph.py
 
