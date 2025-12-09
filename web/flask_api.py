@@ -94,7 +94,7 @@ def home():
     """Serve chatbot HTML (if present) or a simple status JSON."""
     print("\n📄 GET / - Serving chatbot")
     try:
-        return send_file("vr-chatbot-embed.html", mimetype="text/html")
+        return send_file("chat_interface.html", mimetype="text/html")
     except Exception as e:
         return jsonify(
             {
