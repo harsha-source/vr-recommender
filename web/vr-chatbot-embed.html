@@ -3,25 +3,25 @@
 <!-- https://www.cmu.edu/web/how-to/build-site/manage/advanced/scripts.html -->
 
 <script>
-(function() {
-    function init() {
-    // Configuration - UPDATE THIS WITH YOUR DEPLOYED BACKEND URL
-    const CHATBOT_API_URL = 'http://localhost:5001/chat'; // Change to your deployed Flask API URL
-    const WIDGET_POSITION = 'bottom-right'; // Options: 'bottom-right', 'bottom-left'
-    
-    // Create container
-    const container = document.createElement('div');
-    container.id = 'cmu-vr-chatbot-container';
-    container.style.position = 'fixed';
-    container.style.bottom = '20px';
-    container.style.right = WIDGET_POSITION === 'bottom-right' ? '20px' : 'auto';
-    container.style.left = WIDGET_POSITION === 'bottom-left' ? '20px' : 'auto';
-    container.style.zIndex = '9999';
-    container.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    
-    // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
+    (function () {
+        function init() {
+            // Configuration - UPDATE THIS WITH YOUR DEPLOYED BACKEND URL
+            const CHATBOT_API_URL = 'http://localhost:8080/chat'; // Change to your deployed Flask API URL
+            const WIDGET_POSITION = 'bottom-right'; // Options: 'bottom-right', 'bottom-left'
+
+            // Create container
+            const container = document.createElement('div');
+            container.id = 'cmu-vr-chatbot-container';
+            container.style.position = 'fixed';
+            container.style.bottom = '20px';
+            container.style.right = WIDGET_POSITION === 'bottom-right' ? '20px' : 'auto';
+            container.style.left = WIDGET_POSITION === 'bottom-left' ? '20px' : 'auto';
+            container.style.zIndex = '9999';
+            container.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+            // Add styles
+            const style = document.createElement('style');
+            style.textContent = `
         #cmu-vr-chat-button {
             width: 60px;
             height: 60px;
@@ -202,10 +202,10 @@
         }
         
     `;
-    document.head.appendChild(style);
-    
-    // Create widget HTML
-    container.innerHTML = `
+            document.head.appendChild(style);
+
+            // Create widget HTML
+            container.innerHTML = `
         <button id="cmu-vr-chat-button" aria-label="Open VR Assistant">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
@@ -244,125 +244,125 @@ Simply tell me what you'd like to learn about (e.g., "machine learning for publi
             </div>
         </div>
     `;
-    
-    // Add to page
-    document.body.appendChild(container);
-    
-    // Initialize functionality
-    const chatButton = document.getElementById('cmu-vr-chat-button');
-    const chatWindow = document.getElementById('cmu-vr-chat-window');
-    const chatClose = document.getElementById('cmu-vr-chat-close');
-    const chatInput = document.getElementById('cmu-vr-chat-input');
-    const chatSend = document.getElementById('cmu-vr-chat-send');
-    const messagesContainer = document.getElementById('cmu-vr-chat-messages');
-    
-    let conversationHistory = [];
-    
-    chatButton.addEventListener('click', () => {
-        chatWindow.classList.toggle('open');
-        if (chatWindow.classList.contains('open')) {
-            chatInput.focus();
-        }
-    });
-    
-    chatClose.addEventListener('click', () => {
-        chatWindow.classList.remove('open');
-    });
-    
-    chatSend.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
-    
-    // Auto-resize textarea
-    chatInput.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-    });
-    
-    async function sendMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-        
-        addMessage(message, 'user');
-        conversationHistory.push({ role: 'user', content: message });
-        
-        chatInput.value = '';
-        chatInput.style.height = 'auto';
-        chatInput.disabled = true;
-        chatSend.disabled = true;
-        
-        const typingIndicator = addTypingIndicator();
-        
-        try {
-            const response = await fetch(CHATBOT_API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    message,
-                    history: conversationHistory 
-                })
+
+            // Add to page
+            document.body.appendChild(container);
+
+            // Initialize functionality
+            const chatButton = document.getElementById('cmu-vr-chat-button');
+            const chatWindow = document.getElementById('cmu-vr-chat-window');
+            const chatClose = document.getElementById('cmu-vr-chat-close');
+            const chatInput = document.getElementById('cmu-vr-chat-input');
+            const chatSend = document.getElementById('cmu-vr-chat-send');
+            const messagesContainer = document.getElementById('cmu-vr-chat-messages');
+
+            let conversationHistory = [];
+
+            chatButton.addEventListener('click', () => {
+                chatWindow.classList.toggle('open');
+                if (chatWindow.classList.contains('open')) {
+                    chatInput.focus();
+                }
             });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
+
+            chatClose.addEventListener('click', () => {
+                chatWindow.classList.remove('open');
+            });
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            // Auto-resize textarea
+            chatInput.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            });
+
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                if (!message) return;
+
+                addMessage(message, 'user');
+                conversationHistory.push({ role: 'user', content: message });
+
+                chatInput.value = '';
+                chatInput.style.height = 'auto';
+                chatInput.disabled = true;
+                chatSend.disabled = true;
+
+                const typingIndicator = addTypingIndicator();
+
+                try {
+                    const response = await fetch(CHATBOT_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message,
+                            history: conversationHistory
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    typingIndicator.remove();
+
+                    // Format the response with markdown-style formatting
+                    const formattedResponse = formatBotResponse(data.response);
+                    addMessage(formattedResponse, 'bot');
+                    conversationHistory.push({ role: 'assistant', content: data.response });
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    typingIndicator.remove();
+                    addMessage('Sorry, I encountered an error. Please make sure the backend server is running and try again.', 'bot');
+                } finally {
+                    chatInput.disabled = false;
+                    chatSend.disabled = false;
+                    chatInput.focus();
+                }
             }
-            
-            const data = await response.json();
-            typingIndicator.remove();
-            
-            // Format the response with markdown-style formatting
-            const formattedResponse = formatBotResponse(data.response);
-            addMessage(formattedResponse, 'bot');
-            conversationHistory.push({ role: 'assistant', content: data.response });
-            
-        } catch (error) {
-            console.error('Error:', error);
-            typingIndicator.remove();
-            addMessage('Sorry, I encountered an error. Please make sure the backend server is running and try again.', 'bot');
-        } finally {
-            chatInput.disabled = false;
-            chatSend.disabled = false;
-            chatInput.focus();
-        }
-    }
-    
-    function formatBotResponse(text) {
-        // Convert **bold** to <strong>
-        return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    }
-    
-    function addMessage(content, sender) {
-        const div = document.createElement('div');
-        div.className = `cmu-vr-message ${sender}`;
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'cmu-vr-message-content';
-        
-        // For bot messages, parse HTML; for user messages, use plain text
-        if (sender === 'bot') {
-            contentDiv.innerHTML = content;
-        } else {
-            contentDiv.textContent = content;
-        }
-        
-        div.innerHTML = `
+
+            function formatBotResponse(text) {
+                // Convert **bold** to <strong>
+                return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            }
+
+            function addMessage(content, sender) {
+                const div = document.createElement('div');
+                div.className = `cmu-vr-message ${sender}`;
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'cmu-vr-message-content';
+
+                // For bot messages, parse HTML; for user messages, use plain text
+                if (sender === 'bot') {
+                    contentDiv.innerHTML = content;
+                } else {
+                    contentDiv.textContent = content;
+                }
+
+                div.innerHTML = `
             <div class="cmu-vr-message-avatar">${sender === 'bot' ? '🤖' : '👤'}</div>
         `;
-        div.appendChild(contentDiv);
-        
-        messagesContainer.appendChild(div);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        return div;
-    }
-    
-    function addTypingIndicator() {
-        const div = document.createElement('div');
-        div.className = 'cmu-vr-message bot';
-        div.innerHTML = `
+                div.appendChild(contentDiv);
+
+                messagesContainer.appendChild(div);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                return div;
+            }
+
+            function addTypingIndicator() {
+                const div = document.createElement('div');
+                div.className = 'cmu-vr-message bot';
+                div.innerHTML = `
             <div class="cmu-vr-message-avatar">🤖</div>
             <div class="cmu-vr-message-content">
                 <div class="cmu-vr-typing-indicator">
@@ -372,17 +372,17 @@ Simply tell me what you'd like to learn about (e.g., "machine learning for publi
                 </div>
             </div>
         `;
-        messagesContainer.appendChild(div);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        return div;
-    }
-    
-        // end of init
-    }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-})();
+                messagesContainer.appendChild(div);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                return div;
+            }
+
+            // end of init
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
 </script>

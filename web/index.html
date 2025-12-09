@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -19,26 +21,30 @@
             justify-content: center;
             padding: 20px;
         }
+
         .container {
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 60px;
             max-width: 600px;
             width: 100%;
         }
+
         h1 {
             color: #667eea;
             font-size: 2.5em;
             margin-bottom: 10px;
             text-align: center;
         }
+
         .subtitle {
             color: #666;
             text-align: center;
             margin-bottom: 40px;
             font-size: 1.1em;
         }
+
         .status {
             background: #d4edda;
             color: #155724;
@@ -47,6 +53,7 @@
             margin-bottom: 30px;
             border: 2px solid #c3e6cb;
         }
+
         .warning {
             background: #fff3cd;
             color: #856404;
@@ -55,12 +62,14 @@
             margin-bottom: 30px;
             border: 2px solid #ffeaa7;
         }
+
         .btn-group {
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
             flex-wrap: wrap;
         }
+
         .btn {
             flex: 1;
             min-width: 150px;
@@ -75,24 +84,29 @@
             transition: all 0.3s;
             display: inline-block;
         }
+
         .btn-primary {
             background: #667eea;
             color: white;
         }
+
         .btn-primary:hover {
             background: #5568d3;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
         .btn-secondary {
             background: #e7f3ff;
             color: #667eea;
             border: 2px solid #667eea;
         }
+
         .btn-secondary:hover {
             background: #667eea;
             color: white;
         }
+
         .info-box {
             background: #f8f9fa;
             border-left: 4px solid #667eea;
@@ -100,10 +114,12 @@
             margin-bottom: 20px;
             border-radius: 5px;
         }
+
         .info-box h3 {
             color: #667eea;
             margin-bottom: 10px;
         }
+
         .code {
             background: #2d2d2d;
             color: #f8f8f2;
@@ -113,12 +129,14 @@
             margin: 10px 0;
             overflow-x: auto;
         }
+
         .highlight {
             background: #fff3cd;
             padding: 2px 6px;
             border-radius: 3px;
             font-weight: bold;
         }
+
         .note {
             background: #e7f3ff;
             padding: 15px;
@@ -129,6 +147,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>🥽 VR Recommender</h1>
@@ -146,7 +165,7 @@
         </div>
 
         <div class="btn-group">
-            <a href="http://127.0.0.1:5001" class="btn btn-primary">
+            <a href="http://127.0.0.1:8080" class="btn btn-primary">
                 🚀 访问 Chatbot
             </a>
             <a href="http://127.0.0.1:8000/test_access.html" class="btn btn-secondary">
@@ -168,8 +187,8 @@
 
         <div class="info-box">
             <h3>🌐 API 端点</h3>
-            <p>• <span class="highlight">Chatbot</span>: <code>http://127.0.0.1:5001</code></p>
-            <p>• <span class="highlight">健康检查</span>: <code>http://127.0.0.1:5001/health</code></p>
+            <p>• <span class="highlight">Chatbot</span>: <code>http://127.0.0.1:8080</code></p>
+            <p>• <span class="highlight">健康检查</span>: <code>http://127.0.0.1:8080/health</code></p>
             <p>• <span class="highlight">Neo4j UI</span>: <code>http://127.0.0.1:7474</code></p>
         </div>
 
@@ -183,7 +202,7 @@
         // 检查 API 状态
         async function checkAPIStatus() {
             try {
-                const response = await fetch('http://127.0.0.1:5001/health');
+                const response = await fetch('http://127.0.0.1:8080/health');
                 const data = await response.json();
 
                 if (data.status === 'healthy') {
@@ -197,4 +216,5 @@
         window.onload = checkAPIStatus;
     </script>
 </body>
+
 </html>

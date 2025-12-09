@@ -73,12 +73,12 @@ docker exec -it vr-recommender python vector_store/scripts/build_vector_index.py
 
 # 5. Final Check
 log_info "Checking API health..."
-if curl -s http://localhost:5001/health > /dev/null; then
+if curl -s http://localhost:8080/health > /dev/null; then
     echo ""
     echo "╔══════════════════════════════════════════════════════════════════╗"
     echo "║             Deployment Successful! 🚀                            ║"
     echo "╚══════════════════════════════════════════════════════════════════╝"
-    echo "API is running at: http://localhost:5001"
+    echo "API is running at: http://localhost:8080"
 else
     log_error "Health check failed. Check logs with: docker compose -f docker-compose.prod.yml logs"
 fi
