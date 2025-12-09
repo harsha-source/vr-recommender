@@ -1,0 +1,1443 @@
+[
+  {
+    "app_id": "InMind",
+    "name": "InMind",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Brain Science",
+      "Neuroscience",
+      "Psychology",
+      "Artificial Intelligence"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "VR_Museum_Art_Through_Time",
+    "name": "VR Museum: Art Through Time",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Origami_Dojo",
+    "name": "Origami Dojo",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "VEDAVI_VR_Human_Anatomy",
+    "name": "VEDAVI VR Human Anatomy",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Medicine",
+      "Anatomy",
+      "Biology"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "3D_Organon_VR_Anatomy",
+    "name": "3D Organon VR Anatomy",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Medicine",
+      "Anatomy",
+      "Biology"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Mission_ISS",
+    "name": "Mission ISS",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Babel_VR",
+    "name": "Babel VR",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Unimersiv",
+    "name": "Unimersiv",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "MEL_Science_VR",
+    "name": "MEL Science VR",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Chemistry_Lab",
+    "name": "Chemistry Lab",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Lab Safety",
+      "Science"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "VR_Space_VR",
+    "name": "\u5b87\u5b99VR (Space VR)",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Physics"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Newton_s_Cradle",
+    "name": "Newton's Cradle",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Solar_System_VR",
+    "name": "Solar System VR",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Space Science",
+      "Physics"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "GeoGebra_AR",
+    "name": "GeoGebra AR",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Geometry",
+      "Mathematics",
+      "Data Visualization",
+      "Calculus"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Molecules_by_Theodore_Gray",
+    "name": "Molecules by Theodore Gray",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Chemistry",
+      "Science",
+      "Molecular Biology"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "The_Body_VR",
+    "name": "The Body VR",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Medicine",
+      "Anatomy",
+      "Health Science",
+      "Biology"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Google_Expeditions",
+    "name": "Google Expeditions",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Discovery_VR",
+    "name": "Discovery VR",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Titans_of_Space",
+    "name": "Titans of Space",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Physics",
+      "Astronomy"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Apollo_11",
+    "name": "Apollo 11",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Cosmic_Watch",
+    "name": "Cosmic Watch",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Astronomy"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Skygaze",
+    "name": "Skygaze",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Universe_Sandbox",
+    "name": "Universe Sandbox",
+    "category": "education",
+    "description": "Educational VR application that enhances learning through immersive experiences. Perfect for students and educators.",
+    "features": [
+      "Interactive learning",
+      "Educational content",
+      "3D visualizations"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding",
+      "Physics",
+      "Astronomy"
+    ],
+    "rating": 4.2,
+    "price": "$0-19.99"
+  },
+  {
+    "app_id": "Metaenga",
+    "name": "Metaenga",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Vrainers",
+    "name": "Vrainers",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "SafeFire_VR",
+    "name": "SafeFire VR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "STRIVR",
+    "name": "STRIVR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Voxels",
+    "name": "Voxels",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Immersive_Training",
+    "name": "Immersive Training",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Engage_VR",
+    "name": "Engage VR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "VirBELA",
+    "name": "VirBELA",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Campus",
+    "name": "Campus",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "MediTeach_VR",
+    "name": "MediTeach VR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "SimX_VR",
+    "name": "SimX VR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "OrthoVR",
+    "name": "OrthoVR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Dentali_VR",
+    "name": "Dentali VR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "VR_Surgical_Training",
+    "name": "VR Surgical Training",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training",
+      "Medicine",
+      "Surgery",
+      "Health Science"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Surgical_Theater",
+    "name": "Surgical Theater",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training",
+      "Medicine",
+      "Surgery",
+      "Health Science"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Level_Ex",
+    "name": "Level Ex",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "FundamentalVR",
+    "name": "FundamentalVR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Touch_Surgery",
+    "name": "Touch Surgery",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "AppliedVR",
+    "name": "AppliedVR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Psious",
+    "name": "Psious",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Luminopia",
+    "name": "Luminopia",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Caribu",
+    "name": "Caribu",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Futuclass_Education",
+    "name": "Futuclass Education",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "VictoryXR",
+    "name": "VictoryXR",
+    "category": "training",
+    "description": "Training and skill development VR application with realistic simulations.",
+    "features": [
+      "Skill training",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Professional development",
+      "Technical training"
+    ],
+    "rating": 4.1,
+    "price": "$10-49.99"
+  },
+  {
+    "app_id": "Virtual_Desktop",
+    "name": "Virtual Desktop",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration",
+      "Computer Science",
+      "Programming",
+      "Remote Work",
+      "Data Analysis"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Immersed",
+    "name": "Immersed",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration",
+      "Computer Science",
+      "Programming",
+      "Remote Work",
+      "Data Analysis"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Horizon_Workrooms",
+    "name": "Horizon Workrooms",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration",
+      "Communication",
+      "Project Management"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Spatial",
+    "name": "Spatial",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Arthur_VR",
+    "name": "Arthur VR",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "MeetinVR",
+    "name": "MeetinVR",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Glue",
+    "name": "Glue",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Spatial_Rooms",
+    "name": "Spatial Rooms",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "VRChat",
+    "name": "VRChat",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration",
+      "Communication",
+      "Community Building",
+      "Social Interaction"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Rec_Room",
+    "name": "Rec Room",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration",
+      "Creativity",
+      "Social Interaction",
+      "Game Design"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Bigscreen",
+    "name": "Bigscreen",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Mozilla_Hubs",
+    "name": "Mozilla Hubs",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "AltspaceVR",
+    "name": "AltspaceVR",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration",
+      "Physics",
+      "Astronomy"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "VRWorkout",
+    "name": "VRWorkout",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Supernatural",
+    "name": "Supernatural",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "FitXR",
+    "name": "FitXR",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "BoxVR",
+    "name": "BoxVR",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Beat_Saber",
+    "name": "Beat Saber",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Robo_Recall",
+    "name": "Robo Recall",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Boneworks",
+    "name": "Boneworks",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Half_Life_Alyx",
+    "name": "Half-Life: Alyx",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "The_Walking_Dead_Saints_Sinners",
+    "name": "The Walking Dead: Saints & Sinners",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "Population_One",
+    "name": "Population: One",
+    "category": "productivity",
+    "description": "Productivity-focused VR application for enhanced workflow and collaboration.",
+    "features": [
+      "Workflow enhancement",
+      "Productivity tools",
+      "Interface optimization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.3,
+    "price": "$0-29.99"
+  },
+  {
+    "app_id": "VR_education",
+    "name": "VR education",
+    "category": "education",
+    "description": "VR application focused on education. Enhances learning and skill development through immersive virtual reality experiences.",
+    "features": [
+      "Interactive learning",
+      "3D visualizations",
+      "Knowledge assessment"
+    ],
+    "skills_developed": [
+      "Learning",
+      "Knowledge retention",
+      "Visual understanding"
+    ],
+    "rating": 4.0,
+    "price": "Unknown"
+  },
+  {
+    "app_id": "VR_fitness",
+    "name": "VR fitness",
+    "category": "fitness",
+    "description": "VR application focused on training. Enhances learning and skill development through immersive virtual reality experiences.",
+    "features": [
+      "Skill practice",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Problem solving",
+      "Technique mastery"
+    ],
+    "rating": 4.0,
+    "price": "Unknown"
+  },
+  {
+    "app_id": "VR_Fitness_Games_on_Meta",
+    "name": "VR Fitness Games on Meta",
+    "category": "fitness",
+    "description": "VR application focused on training. Enhances learning and skill development through immersive virtual reality experiences.",
+    "features": [
+      "Skill practice",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Problem solving",
+      "Technique mastery"
+    ],
+    "rating": 4.0,
+    "price": "Unknown"
+  },
+  {
+    "app_id": "VR_Fitness",
+    "name": "VR Fitness",
+    "category": "fitness",
+    "description": "VR application focused on training. Enhances learning and skill development through immersive virtual reality experiences.",
+    "features": [
+      "Skill practice",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Problem solving",
+      "Technique mastery"
+    ],
+    "rating": 4.0,
+    "price": "Unknown"
+  },
+  {
+    "app_id": "Meta",
+    "name": "Meta",
+    "category": "productivity",
+    "description": "VR application focused on training. Enhances learning and skill development through immersive virtual reality experiences.",
+    "features": [
+      "Skill practice",
+      "Realistic simulations",
+      "Progress tracking"
+    ],
+    "skills_developed": [
+      "Practical skills",
+      "Problem solving",
+      "Technique mastery"
+    ],
+    "rating": 4.0,
+    "price": "Unknown"
+  },
+  {
+    "app_id": "VR_productivity",
+    "name": "VR productivity",
+    "category": "productivity",
+    "description": "VR application focused on productivity. Enhances learning and skill development through immersive virtual reality experiences.",
+    "features": [
+      "Multi-screen setup",
+      "Remote collaboration",
+      "Workspace customization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.0,
+    "price": "Unknown"
+  },
+  {
+    "app_id": "productivity",
+    "name": "productivity",
+    "category": "productivity",
+    "description": "VR application focused on productivity. Enhances learning and skill development through immersive virtual reality experiences.",
+    "features": [
+      "Multi-screen setup",
+      "Remote collaboration",
+      "Workspace customization"
+    ],
+    "skills_developed": [
+      "Productivity",
+      "Remote work",
+      "Collaboration"
+    ],
+    "rating": 4.0,
+    "price": "Unknown"
+  }
+]

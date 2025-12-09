@@ -1,0 +1,173 @@
+============================================================
+STAGE 2: SKILL EXTRACTION PIPELINE
+============================================================
+
+[CONFIG] Processing top 10 courses and 10 VR apps
+
+[1/2] Processing courses...
+Loading courses from stage1/data/courses.json...
+  Limited to top 10 courses
+Processing 10 courses...
+  [1/10] Extracting skills from: 15-050
+  [2/10] Extracting skills from: 15-090
+  [3/10] Extracting skills from: 15-104
+Error parsing LLM response: Unterminated string starting at: line 90 column 7 (char 1754)
+Content: {
+  "skills": [
+    {
+      "name": "Text-based programming",
+      "category": "technical",
+      "weight": 0.9
+    },
+    {
+      "name": "Procedural programming",
+      "category": "technical",
+      "weight": 0.85
+    },
+    {
+      "name": "Sequencing",
+      "category": "technical",
+      "weight": 0.8
+    },
+    {
+      "name": "Selection (conditionals)",
+      "category": "technical",
+      "weight": 0.8
+    },
+    {
+      "name": "Iteration (loops)",
+      "category": "technical",
+      "weight": 0.8
+    },
+    {
+      "name": "Recursion",
+      "category": "technical",
+      "weight": 0.75
+    },
+    {
+      "name": "Data organization",
+      "category": "technical",
+      "weight": 0.7
+    },
+    {
+      "name": "Arrays",
+      "category": "technical",
+      "weight": 0.7
+    },
+    {
+      "name": "File handling",
+      "category": "technical",
+      "weight": 0.65
+    },
+    {
+      "name": "Trees (data structures)",
+      "category": "technical",
+      "weight": 0.6
+    },
+    {
+      "name": "Interfaces",
+      "category": "technical",
+      "weight": 0.65
+    },
+    {
+      "name": "Abstraction",
+      "category": "technical",
+      "weight": 0.7
+    },
+    {
+      "name": "Creative problem solving",
+      "category": "soft",
+      "weight": 0.8
+    },
+    {
+      "name": "Interdisciplinary collaboration",
+      "category": "soft",
+      "weight": 0.7
+    },
+    {
+      "name": "Artistic application of technology",
+      "category": "domain",
+      "weight": 0.9
+    },
+    {
+      "name": "Music technology",
+      "category": "domain",
+      "weight": 0.7
+    },
+    {
+      "name": "Visual arts computation",
+      "category": "domain",
+      "weight": 0.75
+    },
+    {
+      "name": "Design computing",
+      "
+  [4/10] Extracting skills from: 15-110
+  [5/10] Extracting skills from: 15-112
+  [6/10] Extracting skills from: 15-121
+  [7/10] Extracting skills from: 15-122
+  [8/10] Extracting skills from: 15-150
+  [9/10] Extracting skills from: 15-151
+  [10/10] Extracting skills from: 15-195
+  ✓ Completed 10/10 courses...
+✓ Completed processing 10 courses
+  Extracted 77 skill instances
+  Created 77 course-skill mappings
+
+[2/2] Processing VR apps...
+Loading VR apps from stage1/data/vr_apps.json...
+  Limited to top 10 apps
+Processing 10 VR apps...
+  [1/10] Extracting skills from: InMind
+  [2/10] Extracting skills from: VR_Museum_Art_Through_Time
+  [3/10] Extracting skills from: Origami_Dojo
+  [4/10] Extracting skills from: VEDAVI_VR_Human_Anatomy
+  [5/10] Extracting skills from: 3D_Organon_VR_Anatomy
+  [6/10] Extracting skills from: Mission_ISS
+  [7/10] Extracting skills from: Babel_VR
+  [8/10] Extracting skills from: Unimersiv
+  [9/10] Extracting skills from: MEL_Science_VR
+  [10/10] Extracting skills from: Chemistry_Lab
+  ✓ Completed 10/10 apps...
+✓ Completed processing 10 VR apps
+  Extracted 79 skill instances
+  Created 79 app-skill mappings
+
+[Deduplication] Merging and deduplicating skills...
+✓ Deduplication complete:
+  Input: 156 skill instances
+  Output: 90 unique skills
+
+[Saving] Saving results to stage1/data...
+
+============================================================
+PIPELINE COMPLETE
+============================================================
+✓ Extracted 90 unique skills
+✓ Created 77 course-skill mappings
+✓ Created 79 app-skill mappings
+✓ Files saved to: stage1/data
+
+============================================================
+SUMMARY
+============================================================
+✓ Extracted 90 unique skills
+✓ Created 77 course-skill mappings
+✓ Created 79 app-skill mappings
+
+Category breakdown:
+  domain: 10 skills
+  soft: 14 skills
+  technical: 66 skills
+
+Top 10 most frequent skills:
+  Programming (domain): 8 mentions
+  Interactive Learning (technical): 8 mentions
+  3D Visualizations (technical): 8 mentions
+  Education (domain): 8 mentions
+  Educational Content Development (technical): 7 mentions
+  Student Engagement (technical): 6 mentions
+  Immersive Experience Design (technical): 4 mentions
+  Virtual Reality (Vr) Applications (domain): 4 mentions
+  Problem Solving (technical): 3 mentions
+  Collaboration (soft): 3 mentions

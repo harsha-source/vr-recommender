@@ -1,0 +1,560 @@
+<frozen importlib._bootstrap>:228: RuntimeWarning: scipy._lib.messagestream.MessageStream size changed, may indicate binary incompatibility. Expected 56 from C header, got 64 from PyObject
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version '2.8.4' or newer of 'numexpr' (version '2.8.1' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:61: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.4' currently installed).
+  from pandas.core import (
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "json" shadows an attribute in parent "BaseModel"; 
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "schema" shadows an attribute in parent "Format"; 
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "json" shadows an attribute in parent "Document"; 
+  warnings.warn(
+✓ Connected to MongoDB: vr_recommender
+
+======================================================================
+INITIALIZING HEINZ RAG VR APP RECOMMENDER
+======================================================================
+
+🔄 Initializing Services...
+✓ Database Logger ready
+✓ Data Manager ready
+Loading local embedding model: all-MiniLM-L6-v2
+✓ Model loaded successfully
+✓ Vector store initialized at vector_store/data/chroma
+✓ Vector indexer initialized
+✓ Connected to Neo4j at bolt://localhost:7687
+   [RAG] Loaded 78 active skills (skills with VR Apps)
+✓ RAG VR Recommender ready!
+
+======================================================================
+HEINZ RAG VR APP RECOMMENDER API
+======================================================================
+🚀 Starting on http://localhost:5001
+
+📍 Endpoints:
+   GET  http://localhost:5001/          → Chatbot
+   POST http://localhost:5001/chat      → Get recommendations
+   GET  http://localhost:5001/health    → Health check
+
+💡 Open: http://localhost:{port}
+======================================================================
+
+ * Serving Flask app 'flask_api'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.130:5001
+Press CTRL+C to quit
+ * Restarting with watchdog (fsevents)
+<frozen importlib._bootstrap>:228: RuntimeWarning: scipy._lib.messagestream.MessageStream size changed, may indicate binary incompatibility. Expected 56 from C header, got 64 from PyObject
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version '2.8.4' or newer of 'numexpr' (version '2.8.1' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:61: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.4' currently installed).
+  from pandas.core import (
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "json" shadows an attribute in parent "BaseModel"; 
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "schema" shadows an attribute in parent "Format"; 
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "json" shadows an attribute in parent "Document"; 
+  warnings.warn(
+ * Debugger is active!
+ * Debugger PIN: 929-036-735
+127.0.0.1 - - [26/Nov/2025 12:50:05] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:50:11] "GET /api/admin/stats HTTP/1.1" 401 -
+127.0.0.1 - - [26/Nov/2025 12:50:16] "POST /api/auth/login HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:50:20] "GET /api/admin/stats HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:50:25] "POST /api/auth/logout HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:50:31] "GET /api/admin/stats HTTP/1.1" 401 -
+127.0.0.1 - - [26/Nov/2025 12:55:26] "GET /admin HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:55:26] "GET /api/auth/check HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:55:27] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [26/Nov/2025 12:58:20] "POST /api/auth/login HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:58:20] "GET /admin HTTP/1.1" 304 -
+127.0.0.1 - - [26/Nov/2025 12:58:20] "GET /api/auth/check HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:58:20] "GET /api/admin/stats HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 12:58:21] "GET /api/admin/logs?limit=50 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/tq/Downloads/LLM_rec_sys/vr-recommender/flask_api.py", line 67, in decorated_function
+    return f(*args, **kwargs)
+  File "/Users/tq/Downloads/LLM_rec_sys/vr-recommender/flask_api.py", line 249, in admin_logs
+    return jsonify({"logs": logs, "count": len(logs)})
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/json/__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)  # type: ignore[return-value]
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/json/provider.py", line 214, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/json/provider.py", line 179, in dumps
+    return json.dumps(obj, **kwargs)
+  File "/opt/anaconda3/lib/python3.9/json/__init__.py", line 234, in dumps
+    return cls(
+  File "/opt/anaconda3/lib/python3.9/json/encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "/opt/anaconda3/lib/python3.9/json/encoder.py", line 431, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/opt/anaconda3/lib/python3.9/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/opt/anaconda3/lib/python3.9/json/encoder.py", line 325, in _iterencode_list
+    yield from chunks
+  File "/opt/anaconda3/lib/python3.9/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/opt/anaconda3/lib/python3.9/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/opt/anaconda3/lib/python3.9/site-packages/flask/json/provider.py", line 121, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type ObjectId is not JSON serializable
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/tags.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_musllinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/metadata.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_parser.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/requirements.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_structures.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/markers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_manylinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_tokenizer.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/specifiers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_elffile.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/licenses/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/licenses/_spdx.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_elffile.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_elffile.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_manylinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_manylinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_musllinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_musllinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_parser.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_parser.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_structures.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_structures.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_tokenizer.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/_tokenizer.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/markers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/markers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/metadata.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/metadata.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/requirements.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/requirements.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/specifiers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/specifiers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/tags.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/tags.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/licenses/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/licenses/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/licenses/_spdx.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/packaging/licenses/_spdx.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/tags.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/_musllinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/metadata.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/licenses/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/licenses/_spdx.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/_parser.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/requirements.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/_structures.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/markers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/_manylinux.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/_tokenizer.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/specifiers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/~ackaging/_elffile.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/ordered_set/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/ordered_set/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/_version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/_version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/errors.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/errors.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/limits.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/limits.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/strategies.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/strategies.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/typing.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/typing.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/strategies.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/strategies.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/base.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/base.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/etcd.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/etcd.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/memcached.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/memcached.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/memory.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/memory.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/mongodb.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/mongodb.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/bridge.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/bridge.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/coredis.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/coredis.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/redispy.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/aio/storage/redis/redispy.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/base.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/base.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/etcd.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/etcd.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/memcached.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/memcached.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/memory.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/memory.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/mongodb.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/mongodb.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/redis.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/redis.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/redis_cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/redis_cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/redis_sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/redis_sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/registry.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/limits/storage/registry.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/background.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/background.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/backoff.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/backoff.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/cache.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/cache.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/connection.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/connection.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/crc.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/crc.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/credentials.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/credentials.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/data_structure.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/data_structure.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/event.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/event.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/exceptions.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/exceptions.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/lock.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/lock.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/maint_notifications.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/maint_notifications.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/ocsp.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/ocsp.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/retry.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/retry.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/typing.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/typing.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/base.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/base.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/encoders.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/encoders.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/helpers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/helpers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/hiredis.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/hiredis.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/resp2.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/resp2.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/resp3.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/resp3.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/socket.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/_parsers/socket.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/connection.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/connection.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/lock.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/lock.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/retry.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/retry.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/http/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/http/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/http/http_client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/http/http_client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/command_executor.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/command_executor.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/config.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/config.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/database.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/database.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/event.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/event.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/failover.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/failover.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/failure_detector.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/failure_detector.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/healthcheck.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/asyncio/multidb/healthcheck.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/err.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/err.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/idp.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/idp.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/token.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/token.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/token_manager.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/auth/token_manager.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/cluster.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/core.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/core.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/helpers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/helpers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/redismodules.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/redismodules.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/sentinel.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/bf/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/bf/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/bf/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/bf/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/bf/info.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/bf/info.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/_util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/_util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/decoders.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/decoders.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/path.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/json/path.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/_util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/_util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/aggregation.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/aggregation.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/dialect.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/dialect.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/document.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/document.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/field.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/field.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/index_definition.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/index_definition.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/profile_information.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/profile_information.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/query.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/query.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/querystring.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/querystring.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/reducers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/reducers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/result.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/result.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/suggestion.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/search/suggestion.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/info.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/info.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/timeseries/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/vectorset/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/vectorset/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/vectorset/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/vectorset/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/vectorset/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/commands/vectorset/utils.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/http/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/http/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/http/http_client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/http/http_client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/circuit.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/circuit.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/client.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/command_executor.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/command_executor.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/config.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/config.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/database.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/database.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/event.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/event.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/exception.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/exception.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/failover.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/failover.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/failure_detector.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/failure_detector.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/healthcheck.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/redis/multidb/healthcheck.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/_compat.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/_compat.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/_version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/_version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/commands.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/constants.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/constants.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/errors.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/errors.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/extension.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/extension.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/manager.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/manager.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/typing.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/typing.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/version.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/wrappers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/wrappers.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/contrib/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/contrib/__init__.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/contrib/util.py', reloading
+ * Detected change in '/opt/anaconda3/lib/python3.9/site-packages/flask_limiter/contrib/util.py', reloading
+✓ Connected to MongoDB: vr_recommender
+
+======================================================================
+INITIALIZING HEINZ RAG VR APP RECOMMENDER
+======================================================================
+
+🔄 Initializing Services...
+✓ Database Logger ready
+✓ Data Manager ready
+Loading local embedding model: all-MiniLM-L6-v2
+✓ Model loaded successfully
+✓ Vector store initialized at vector_store/data/chroma
+✓ Vector indexer initialized
+✓ Connected to Neo4j at bolt://localhost:7687
+   [RAG] Loaded 78 active skills (skills with VR Apps)
+✓ RAG VR Recommender ready!
+
+======================================================================
+HEINZ RAG VR APP RECOMMENDER API
+======================================================================
+🚀 Starting on http://localhost:5001
+
+📍 Endpoints:
+   GET  http://localhost:5001/          → Chatbot
+   POST http://localhost:5001/chat      → Get recommendations
+   GET  http://localhost:5001/health    → Health check
+
+💡 Open: http://localhost:{port}
+======================================================================
+
+
+📊 GET /admin - Serving Dashboard
+
+📊 GET /admin - Serving Dashboard
+ * Restarting with watchdog (fsevents)
+<frozen importlib._bootstrap>:228: RuntimeWarning: scipy._lib.messagestream.MessageStream size changed, may indicate binary incompatibility. Expected 56 from C header, got 64 from PyObject
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version '2.8.4' or newer of 'numexpr' (version '2.8.1' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:61: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.4' currently installed).
+  from pandas.core import (
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "json" shadows an attribute in parent "BaseModel"; 
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "schema" shadows an attribute in parent "Format"; 
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/pydantic/_internal/_fields.py:184: UserWarning: Field name "json" shadows an attribute in parent "Document"; 
+  warnings.warn(
+ * Debugger is active!
+ * Debugger PIN: 929-036-735
+ * Detected change in '/Users/tq/Downloads/LLM_rec_sys/vr-recommender/flask_api.py', reloading
+ * Detected change in '/Users/tq/Downloads/LLM_rec_sys/vr-recommender/gunicorn_config.py', reloading
+ * Detected change in '/Users/tq/Downloads/LLM_rec_sys/vr-recommender/gunicorn_config.py', reloading
+✓ Connected to MongoDB: vr_recommender
+
+======================================================================
+INITIALIZING HEINZ RAG VR APP RECOMMENDER
+======================================================================
+
+🔄 Initializing Services...
+✓ Database Logger ready
+✓ Data Manager ready
+Loading local embedding model: all-MiniLM-L6-v2
+✓ Model loaded successfully
+✓ Vector store initialized at vector_store/data/chroma
+✓ Vector indexer initialized
+✓ Connected to Neo4j at bolt://localhost:7687
+   [RAG] Loaded 78 active skills (skills with VR Apps)
+✓ RAG VR Recommender ready!
+
+======================================================================
+HEINZ RAG VR APP RECOMMENDER API
+======================================================================
+🚀 Starting on http://localhost:5001
+
+📍 Endpoints:
+   GET  http://localhost:5001/          → Chatbot
+   POST http://localhost:5001/chat      → Get recommendations
+   GET  http://localhost:5001/health    → Health check
+
+💡 Open: http://localhost:{port}
+======================================================================
+
+ * Restarting with watchdog (fsevents)
+  File "/Users/tq/Downloads/LLM_rec_sys/vr-recommender/flask_api.py", line 1
+    "Flask API for OpenRouter LLM-based VR App Recommender (Heinz College)
+                                                                          ^
+SyntaxError: EOL while scanning string literal

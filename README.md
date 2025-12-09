@@ -1,207 +1,162 @@
-# VR App Recommendation System
+# VR Recommender System
 
-A system that recommends Meta Quest VR apps based on user queries with likeliness scores, and stores all recommendations in MongoDB for analytics.
+An intelligent VR app recommendation system for CMU Heinz College that combines RAG (Retrieval-Augmented Generation), knowledge graphs, and vector search to provide personalized Meta Quest VR app recommendations based on student learning goals.
 
-## Features
+## 🚀 Quick Start (Recommended)
 
-- **VR App Recommendations**: Get personalized VR app recommendations based on user interests
-- **Likeliness Scoring**: Each app gets a score (0.0-1.0) indicating how well it matches the query
-- **MongoDB Storage**: All recommendations are automatically stored for analytics
-- **Comprehensive Analytics**: Analyze recommendation patterns, popular apps, and user interests
+The project includes a robust all-in-one startup script that handles everything:
 
-## Installation
+```bash
+# Start all services (Neo4j + MongoDB + Flask API)
+./start_project.sh
+```
+
+**What this script does:**
+1.  **Checks Environment**: Ensures Python dependencies are installed.
+2.  **Starts Databases**: Checks for and starts Neo4j and MongoDB services.
+3.  **Cleans Ports**: Automatically frees up ports 5000/5001 if they are in use.
+4.  **Launches App**: Starts the Flask API server.
+5.  **Shows Logs**: Streams the application logs to your terminal.
+
+### Other Startup Options
+
+*   **Background Mode**: Run `./start_project.sh --background` to start services silently and detach.
+*   **Force Restart**: Run `./start_project.sh --force` (or `./restart.sh`) to stop all running instances and restart fresh.
+*   **Status Check**: Run `./status.sh` to view the health of all services.
+*   **Stop**: Run `./stop_all.sh` to cleanly shut down all services.
+
+### Access Points
+
+*   **Chatbot Interface**: http://localhost:5000/
+*   **API Health Check**: http://localhost:5000/health
+*   **Neo4j Browser**: http://localhost:7474
+*   **Admin Dashboard**: http://localhost:5000/admin (Login required)
+
+## 🐳 Docker Deployment (Production)
+
+For production deployment, use Docker Compose to run all services in containers.
 
 ### Prerequisites
 
-- Python 3.9+
-- MongoDB (local or cloud)
-- OpenAI API key
+-   Docker & Docker Compose installed
+-   The `.env` file is already included in this repository with all required API keys and configurations
 
-### Quick Setup
-
-1. **Clone and setup**:
-   ```bash
-   git clone <repository>
-   cd vr_recommender
-   ./setup.sh  # This will install MongoDB and dependencies
-   ```
-
-2. **Set environment variables**:
-   ```bash
-   export OPENAI_API_KEY="your-openai-api-key"
-   export MONGODB_URI="mongodb://localhost:27017/"  # Optional, defaults to localhost
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### Manual Setup
-
-1. **Install MongoDB**:
-   - macOS: `brew install mongodb-community`
-   - Ubuntu: `sudo apt-get install mongodb`
-   - Windows: Download from [MongoDB website](https://www.mongodb.com/try/download/community)
-
-2. **Start MongoDB**:
-   - macOS: `brew services start mongodb/brew/mongodb-community`
-   - Linux: `sudo systemctl start mongod`
-
-3. **Install Python dependencies**:
-   ```bash
-   pip install pymongo openai
-   ```
-
-## Usage
-
-### Basic VR Recommendations
-
-```python
-from vr_recommender import HeinzLLMRecommender, StudentQuery
-
-# Initialize recommender
-recommender = HeinzLLMRecommender(
-    api_key="your-openai-api-key",
-    mongodb_uri="mongodb://localhost:27017/"  # Optional
-)
-
-# Create a student query
-query = StudentQuery(
-    query="I want to learn about machine learning and data science",
-    interests=["machine learning", "data science", "programming"],
-    background="Computer Science student"
-)
-
-# Get recommendations
-recommendations = recommender.generate_vr_recommendation(query)
-print(recommendations)
-```
-
-### Running the Demo
+### Start with Docker Compose
 
 ```bash
-python vr_recommender.py
+# Build and start all services
+docker-compose -f docker-compose.prod.yml up -d --build
+
+# View logs
+docker-compose -f docker-compose.prod.yml logs -f
+
+# Stop all services
+docker-compose -f docker-compose.prod.yml down
 ```
 
-### Analytics
+### Docker Services
+
+| Service | Container | Port | Description |
+|---------|-----------|------|-------------|
+| **vr-recommender** | vr-recommender | 5001:5000 | Flask API with Gunicorn |
+| **redis** | vr-redis | 6379:6379 | Rate limiting & caching |
+| **neo4j** | vr-neo4j | 7474, 7687 | Knowledge graph database |
+
+### Docker Access Points
+
+*   **Chatbot Interface**: http://localhost:5001/
+*   **API Health Check**: http://localhost:5001/health
+*   **Neo4j Browser**: http://localhost:7474
+
+### Docker Commands
 
 ```bash
-python analytics.py
+# Rebuild after code changes
+docker-compose -f docker-compose.prod.yml up -d --build vr-recommender
+
+# View specific service logs
+docker-compose -f docker-compose.prod.yml logs -f vr-recommender
+
+# Check container health
+docker ps
+
+# Enter container shell
+docker exec -it vr-recommender /bin/bash
+
+# Remove volumes (reset data)
+docker-compose -f docker-compose.prod.yml down -v
 ```
 
-## Analytics Features
+## 🏗 Architecture
 
-The analytics system provides insights into:
+The system uses a **RAG (Retrieval-Augmented Generation)** pipeline:
 
-- **Total Recommendations**: Count of all stored recommendations
-- **Most Popular Apps**: Apps recommended most frequently
-- **Category Analysis**: Which categories are most recommended
-- **Interest Patterns**: Which interests lead to most recommendations
-- **Query Analysis**: Patterns in user queries
-- **High-Score Apps**: Apps that consistently get high likeliness scores
-- **Time-based Analysis**: Recommendations over time
+1.  **Query Understanding**: LLM (Gemini 2.0) analyzes user intent.
+2.  **Vector Search (ChromaDB)**: Retrieves semantically similar skills/courses.
+3.  **Knowledge Graph (Neo4j)**: Traverses relationships (`VRApp` -> `DEVELOPS` -> `Skill`).
+    *   *New*: Includes "Semantic Bridge" logic to connect unrelated terms.
+4.  **Ranking (LLM)**: Ranks candidates and generates transparent reasoning.
 
-### Sample Analytics Output
+## 🛠 Key Tech Stack
+
+-   **Language**: Python 3.9+
+-   **Web Framework**: Flask, Gunicorn
+-   **Databases**: Neo4j (Graph), ChromaDB (Vector), MongoDB (Data/Logs)
+-   **LLM Provider**: OpenRouter (Gemini 2.0 Flash)
+-   **Data Collection**: Firecrawl, Tavily
+
+## ⚡ Scalability & Concurrency
+
+The system supports **up to 16 concurrent requests** via Gunicorn's threaded worker model.
+
+### Configuration
+
+| Setting | Value | File |
+|---------|-------|------|
+| Workers | 4 | `web/gunicorn_config.py` |
+| Threads/Worker | 4 | `web/gunicorn_config.py` |
+| Max Concurrent Requests | 16 | (4 × 4) |
+| Request Timeout | 120s | `web/gunicorn_config.py` |
+| MongoDB Pool | 10-50 connections | `src/db/mongo_connection.py` |
+
+### Rate Limits (per IP)
+
+| Endpoint | Limit |
+|----------|-------|
+| `/chat` | 10/minute |
+| `/api/auth/login` | 5/minute |
+| Global | 200/day, 50/hour |
+
+### Scaling Tips
+
+-   Increase `workers` in `gunicorn_config.py` for higher traffic (recommended: 2× CPU cores)
+-   Redis is used for distributed rate limiting across workers
+-   MongoDB connection pool auto-scales up to 50 connections
+
+## 📂 Project Structure
 
 ```
-================================================================================
-VR RECOMMENDATION ANALYTICS SUMMARY
-================================================================================
-
-📊 Total Recommendations Stored: 15
-
-🏆 TOP 10 MOST RECOMMENDED APPS:
---------------------------------------------------
-   1. Neural Explorer VR        (8 times)
-   2. PolicyVR                  (6 times)
-   3. AI Visualization Studio  (5 times)
-   4. CodeVR Workspace          (4 times)
-   5. Virtual Town Hall         (3 times)
-
-📂 TOP CATEGORIES BY RECOMMENDATIONS:
---------------------------------------------------
-  1. Machine Learning          (12 recommendations)
-  2. Public Policy             (9 recommendations)
-  3. Programming               (7 recommendations)
-
-🎯 TOP INTERESTS:
---------------------------------------------------
-  1. machine learning          (8 queries)
-  2. data science              (6 queries)
-  3. public policy             (4 queries)
+vr-recommender/
+├── flask_api.py               # REST API server
+├── vr_recommender.py          # Core RAG logic
+├── start_project.sh           # Main entry point
+├── requirements.txt           # Python dependencies
+├── src/
+│   ├── rag/                   # RAG System (Retriever, Ranker)
+│   ├── chat/                  # Chat Session Management
+│   ├── knowledge_graph/       # Neo4j Graph Builder
+│   ├── vector_store/          # ChromaDB Vector Search
+│   └── db/                    # MongoDB Repositories
+├── data_collection/           # Data Scraping Scripts
+└── scripts/                   # Maintenance Utilities
 ```
 
-## Data Storage
+## 📝 Development Notes
 
-Each recommendation is stored in MongoDB with the following structure:
-
-```json
-{
-  "timestamp": "2024-01-15T10:30:00Z",
-  "student_query": {
-    "query": "I want to learn about machine learning",
-    "interests": ["machine learning", "ai"],
-    "background": "Computer Science student"
-  },
-  "recommendations": [
-    {
-      "app_name": "Neural Explorer VR",
-      "likeliness_score": 1.0,
-      "category": "Machine Learning"
-    }
-  ],
-  "total_apps_recommended": 25,
-  "high_score_apps": 5,
-  "categories": ["Machine Learning", "Programming"]
-}
-```
-
-## Configuration
-
-### Environment Variables
-
-- `OPENAI_API_KEY`: Your OpenAI API key (required)
-- `MONGODB_URI`: MongoDB connection string (optional, defaults to localhost)
-
-### MongoDB Configuration
-
-The system uses the following MongoDB setup:
-- Database: `vr_recommendations`
-- Collection: `recommendations`
-
-## VR App Categories
-
-The system includes apps in these categories:
-
-- **Data Science**: Virtualitics VR, DataVR, Spatial Analytics
-- **Programming**: CodeVR Workspace, Immersed, Virtual Desktop
-- **Public Policy**: PolicyVR, Virtual Town Hall, Spatial Meetings
-- **Data Analytics**: DataViz VR, Tableau VR, Analytics Space
-- **Machine Learning**: Neural Explorer VR, AI Visualization Studio
-- **Cybersecurity**: Cyber Range VR, Security Training VR
-- **Project Management**: Horizon Workrooms, Spatial, Arthur VR
-- **Design Thinking**: Gravity Sketch, Tilt Brush, ShapesXR
-- **Communication**: Spatial Meetings, Horizon Workrooms, MeetinVR
-- **Finance**: Finance Simulator VR, Trading Floor VR
-
-## Error Handling
-
-The system gracefully handles:
-- MongoDB connection failures (continues without storage)
-- OpenAI API errors
-- Invalid queries
-- Missing dependencies
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+-   **Environment Variables**: Stored in `.env` (Requires `OPENROUTER_API_KEY`, `NEO4J_URI`, etc.).
+-   **Updating Data**: Use the Admin Dashboard (`/admin/data`) to trigger scrapers or rebuild graphs.
+-   **Testing**: Run `pytest` or use the `./diagnose.sh` script for system checks.
 
 ## License
 
-MIT License - see LICENSE file for details
-
+MIT License - see LICENSE file for details.
