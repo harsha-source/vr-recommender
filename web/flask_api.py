@@ -297,21 +297,24 @@ def chat():
 
 
 # --------------------------- Admin API (Protected) --------------------------- #
+# All admin endpoints exempt from rate limiting - already protected by login_required
 
 @app.route("/api/admin/logs", methods=["GET"])
+@limiter.exempt
 @login_required
 def admin_logs():
     """Get paginated interaction logs."""
     limit = int(request.args.get('limit', 50))
     offset = int(request.args.get('offset', 0))
     user_filter = request.args.get('user_id')
-    
+
     if interaction_logger:
         logs = interaction_logger.get_admin_logs(limit, offset, user_filter)
         return jsonify({"logs": logs, "count": len(logs)})
     return jsonify({"error": "Logger unavailable"}), 503
 
 @app.route("/api/admin/stats", methods=["GET"])
+@limiter.exempt
 @login_required
 def admin_stats():
     """Get system stats."""
@@ -322,6 +325,7 @@ def admin_stats():
 
 
 @app.route("/api/admin/data/status", methods=["GET"])
+@limiter.exempt  # Admin endpoints exempt - already protected by login_required
 @login_required
 def data_status():
     """Get data file status and current job info."""
@@ -330,48 +334,52 @@ def data_status():
     return jsonify({"error": "Data Manager unavailable"}), 503
 
 @app.route("/api/admin/data/update/courses", methods=["POST"])
+@limiter.exempt
 @login_required
 def update_courses():
     """Trigger course update job."""
     if not data_manager:
         return jsonify({"error": "Data Manager unavailable"}), 503
-        
+
     params = request.get_json(silent=True) or {}
     result = data_manager.start_update_job("courses", params)
-    
+
     if "error" in result:
         return jsonify(result), 409 # Conflict
     return jsonify(result), 202 # Accepted
 
 @app.route("/api/admin/data/update/apps", methods=["POST"])
+@limiter.exempt
 @login_required
 def update_apps():
     """Trigger VR app update job."""
     if not data_manager:
         return jsonify({"error": "Data Manager unavailable"}), 503
-        
+
     params = request.get_json(silent=True) or {}
     result = data_manager.start_update_job("vr_apps", params)
-    
+
     if "error" in result:
         return jsonify(result), 409
     return jsonify(result), 202
 
 @app.route("/api/admin/data/process/skills", methods=["POST"])
+@limiter.exempt
 @login_required
 def process_skills():
     """Trigger skill extraction job."""
     if not data_manager:
         return jsonify({"error": "Data Manager unavailable"}), 503
-        
+
     params = request.get_json(silent=True) or {}
     result = data_manager.start_update_job("skills", params)
-    
+
     if "error" in result:
         return jsonify(result), 409
     return jsonify(result), 202
 
 @app.route("/api/admin/data/process/graph", methods=["POST"])
+@limiter.exempt
 @login_required
 def process_graph():
     """Trigger knowledge graph build job."""
@@ -386,12 +394,13 @@ def process_graph():
     return jsonify(result), 202
 
 @app.route("/api/admin/config", methods=["GET"])
+@limiter.exempt
 @login_required
 def get_config():
     """Get system configuration."""
     if not config_manager:
         return jsonify({"error": "Config Manager unavailable"}), 503
-        
+
     # Define keys we manage
     managed_keys = ["OPENROUTER_API_KEY", "OPENROUTER_MODEL", "FIRECRAWL_API_KEY", "TAVILY_API_KEY", "MONGODB_URI", "NEO4J_URI"]
     sensitive_keys = ["OPENROUTER_API_KEY", "FIRECRAWL_API_KEY", "TAVILY_API_KEY", "MONGODB_URI", "NEO4J_URI"]
@@ -413,6 +422,7 @@ def get_config():
     return jsonify(response_config)
 
 @app.route("/api/admin/config", methods=["POST"])
+@limiter.exempt
 @login_required
 def update_config():
     """Update system configuration."""

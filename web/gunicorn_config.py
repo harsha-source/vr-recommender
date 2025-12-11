@@ -7,10 +7,12 @@ import os
 bind = "0.0.0.0:5000"
 
 # Worker configuration
-# For CPU-bound tasks: workers = 2 * CPUs + 1
-# For I/O-bound tasks (like LLM calls), we need more threads per worker
-workers = 4
-threads = 4  # Allow each worker to handle multiple concurrent requests
+# IMPORTANT: Must use workers=1 to maintain job state consistency.
+# The JobManager stores job state in memory, so multiple workers would each
+# have their own state and status polling would fail.
+# Use threads for concurrency instead of multiple workers.
+workers = 1
+threads = 8  # Increased threads to compensate for single worker
 worker_class = "gthread" # Use threaded workers
 
 # Timeouts
