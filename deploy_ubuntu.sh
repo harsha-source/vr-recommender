@@ -71,6 +71,12 @@ docker exec -it vr-recommender python scripts/build_graph.py
 log_info "Initializing Vector Index (ChromaDB)..."
 docker exec -it vr-recommender python vector_store/scripts/build_vector_index.py
 
+# 4b. Restart Flask to reload DB connection
+log_info "Restarting Flask API to load new data..."
+docker restart vr-recommender
+log_info "Waiting for API to restart (5s)..."
+sleep 5
+
 # 5. Final Check
 log_info "Checking API health..."
 if curl -s http://localhost:8080/health > /dev/null; then
