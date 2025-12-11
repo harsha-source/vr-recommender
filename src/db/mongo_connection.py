@@ -11,6 +11,20 @@ from dotenv import load_dotenv
 # Load env explicitly to ensure it's available when imported
 load_dotenv()
 
+class MongoConnection:
+    _instance = None
+    _client = None
+    db = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __init__(self):
+        if self._client is None:
+            self._connect()
+
     def _connect(self):
         uri = os.getenv("MONGODB_URI")
         db_name = os.getenv("MONGODB_DB", "vr_recommender")
