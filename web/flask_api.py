@@ -59,8 +59,15 @@ config_manager = None
 
 try:
     print("\n🔄 Initializing Services...")
-    interaction_logger = InteractionLogger()
-    print("✓ Database Logger ready")
+    
+    # Initialize Logger (May fail if MongoDB is down)
+    try:
+        interaction_logger = InteractionLogger()
+        print("✓ Database Logger ready")
+    except Exception as e:
+        print(f"⚠ Logger init failed (MongoDB error): {e}")
+        print("⚠ Chat logs will NOT be saved.")
+        interaction_logger = None
 
     config_manager = ConfigManager()
     print("✓ Config Manager ready")
@@ -76,7 +83,7 @@ try:
     conversation_agent = ConversationAgent()
     print("✓ Conversation Agent ready!")
 except Exception as e:
-    print(f"❌ Init failed: {e}")
+    print(f"❌ Critical Init failed: {e}")
     recommender = None
     conversation_agent = None
 
