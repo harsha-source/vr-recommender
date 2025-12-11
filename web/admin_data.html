@@ -335,11 +335,14 @@
                     job.status === 'FAILED' ? 'bg-danger' : 'bg-secondary'
                 );
 
-                // Update Logs
+                // Update Logs - always update console when job exists
+                const consoleDiv = document.getElementById('console-logs');
                 if (job.logs && job.logs.length > 0) {
-                    const consoleDiv = document.getElementById('console-logs');
                     consoleDiv.innerHTML = job.logs.map(l => `<div>${l}</div>`).join('');
                     consoleDiv.scrollTop = consoleDiv.scrollHeight; // Auto-scroll
+                } else if (job.status === 'RUNNING') {
+                    // Job running but no logs yet - show waiting message
+                    consoleDiv.innerHTML = '<div>Job running, waiting for output...</div>';
                 }
 
                 // Check if we should stop fast polling
@@ -391,24 +394,38 @@
     }
 
     async function triggerJob(url, body) {
+        // Immediately show "Starting..." in console before request
+        const consoleDiv = document.getElementById('console-logs');
+        const statusBadge = document.getElementById('job-status');
+        consoleDiv.innerHTML = '<div>Starting job...</div>';
+        statusBadge.textContent = 'STARTING';
+        statusBadge.className = 'badge bg-info';
+
         try {
             const res = await fetch(url, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(body)
             });
-            
+
             const data = await res.json();
             if (res.status === 409) {
                 alert("Error: " + data.error);
+                consoleDiv.innerHTML = '<div class="text-danger">Error: ' + data.error + '</div>';
+                statusBadge.textContent = 'ERROR';
+                statusBadge.className = 'badge bg-danger';
             } else {
-                // Job started
+                // Job started successfully
                 isJobRunning = true;
                 toggleInputs(false);
+                consoleDiv.innerHTML = '<div>Job submitted, waiting for output...</div>';
                 fetchStatus(); // Immediate update
             }
         } catch (err) {
             alert("Network error: " + err.message);
+            consoleDiv.innerHTML = '<div class="text-danger">Network error: ' + err.message + '</div>';
+            statusBadge.textContent = 'ERROR';
+            statusBadge.className = 'badge bg-danger';
         }
     }
 

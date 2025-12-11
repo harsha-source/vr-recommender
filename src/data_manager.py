@@ -73,13 +73,13 @@ class JobManager:
             except:
                 stats["db_status"] = "unavailable"
         
-        # Add job status
+        # Add job status - always include logs array (even if empty)
         if self.current_job:
-            stats["job"] = self.current_job
+            stats["job"] = self.current_job.copy()  # Copy to avoid modifying original
             with self.log_lock:
-                # Return last 20 logs
-                stats["job"]["logs"] = self.logs[-20:]
-        
+                # Return last 20 logs, ensure array exists
+                stats["job"]["logs"] = self.logs[-20:] if self.logs else []
+
         return stats
 
     def _get_file_info(self, filename: str) -> Dict[str, Any]:
