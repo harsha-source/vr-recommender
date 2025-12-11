@@ -2818,5 +2818,293 @@
     "source_type": "vr_app",
     "skill_name": "Astronomy",
     "weight": 0.85
+  },
+  {
+    "source_id": "NeuralNet_VR",
+    "source_type": "app",
+    "skill_name": "Machine Learning",
+    "weight": 0.9
+  },
+  {
+    "source_id": "NeuralNet_VR",
+    "source_type": "app",
+    "skill_name": "Deep Learning",
+    "weight": 0.9
+  },
+  {
+    "source_id": "NeuralNet_VR",
+    "source_type": "app",
+    "skill_name": "Neural Networks",
+    "weight": 0.9
+  },
+  {
+    "source_id": "NeuralNet_VR",
+    "source_type": "app",
+    "skill_name": "Artificial Intelligence",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ML_Lab_VR",
+    "source_type": "app",
+    "skill_name": "Machine Learning",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ML_Lab_VR",
+    "source_type": "app",
+    "skill_name": "Data Science",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ML_Lab_VR",
+    "source_type": "app",
+    "skill_name": "Model Training",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ML_Lab_VR",
+    "source_type": "app",
+    "skill_name": "Python",
+    "weight": 0.9
+  },
+  {
+    "source_id": "DataVerse",
+    "source_type": "app",
+    "skill_name": "Data Science",
+    "weight": 0.9
+  },
+  {
+    "source_id": "DataVerse",
+    "source_type": "app",
+    "skill_name": "Data Analysis",
+    "weight": 0.9
+  },
+  {
+    "source_id": "DataVerse",
+    "source_type": "app",
+    "skill_name": "Pattern Recognition",
+    "weight": 0.9
+  },
+  {
+    "source_id": "DataVerse",
+    "source_type": "app",
+    "skill_name": "Big Data",
+    "weight": 0.9
+  },
+  {
+    "source_id": "StatSim_VR",
+    "source_type": "app",
+    "skill_name": "Data Science",
+    "weight": 0.9
+  },
+  {
+    "source_id": "StatSim_VR",
+    "source_type": "app",
+    "skill_name": "Statistics",
+    "weight": 0.9
+  },
+  {
+    "source_id": "StatSim_VR",
+    "source_type": "app",
+    "skill_name": "Probability",
+    "weight": 0.9
+  },
+  {
+    "source_id": "StatSim_VR",
+    "source_type": "app",
+    "skill_name": "Mathematics",
+    "weight": 0.9
+  },
+  {
+    "source_id": "JavaWorld",
+    "source_type": "app",
+    "skill_name": "Java",
+    "weight": 0.9
+  },
+  {
+    "source_id": "JavaWorld",
+    "source_type": "app",
+    "skill_name": "Programming",
+    "weight": 0.9
+  },
+  {
+    "source_id": "JavaWorld",
+    "source_type": "app",
+    "skill_name": "Object-Oriented Programming",
+    "weight": 0.9
+  },
+  {
+    "source_id": "JavaWorld",
+    "source_type": "app",
+    "skill_name": "Problem Solving",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CodeCity_Java",
+    "source_type": "app",
+    "skill_name": "Java",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CodeCity_Java",
+    "source_type": "app",
+    "skill_name": "Software Architecture",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CodeCity_Java",
+    "source_type": "app",
+    "skill_name": "Code Analysis",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CodeCity_Java",
+    "source_type": "app",
+    "skill_name": "Refactoring",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Virtual_Podium",
+    "source_type": "app",
+    "skill_name": "Public Speaking",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Virtual_Podium",
+    "source_type": "app",
+    "skill_name": "Communication",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Virtual_Podium",
+    "source_type": "app",
+    "skill_name": "Confidence",
+    "weight": 0.9
+  },
+  {
+    "source_id": "Virtual_Podium",
+    "source_type": "app",
+    "skill_name": "Presentation",
+    "weight": 0.9
+  },
+  {
+    "source_id": "SpeechMaster_VR",
+    "source_type": "app",
+    "skill_name": "Public Speaking",
+    "weight": 0.9
+  },
+  {
+    "source_id": "SpeechMaster_VR",
+    "source_type": "app",
+    "skill_name": "Communication",
+    "weight": 0.9
+  },
+  {
+    "source_id": "SpeechMaster_VR",
+    "source_type": "app",
+    "skill_name": "Speech Analysis",
+    "weight": 0.9
+  },
+  {
+    "source_id": "SpeechMaster_VR",
+    "source_type": "app",
+    "skill_name": "Soft Skills",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ImmersiveCharts",
+    "source_type": "app",
+    "skill_name": "Data Visualization",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ImmersiveCharts",
+    "source_type": "app",
+    "skill_name": "Presentation",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ImmersiveCharts",
+    "source_type": "app",
+    "skill_name": "Data Storytelling",
+    "weight": 0.9
+  },
+  {
+    "source_id": "ImmersiveCharts",
+    "source_type": "app",
+    "skill_name": "Communication",
+    "weight": 0.9
+  },
+  {
+    "source_id": "GraphWalk",
+    "source_type": "app",
+    "skill_name": "Data Visualization",
+    "weight": 0.9
+  },
+  {
+    "source_id": "GraphWalk",
+    "source_type": "app",
+    "skill_name": "Network Analysis",
+    "weight": 0.9
+  },
+  {
+    "source_id": "GraphWalk",
+    "source_type": "app",
+    "skill_name": "Graph Theory",
+    "weight": 0.9
+  },
+  {
+    "source_id": "GraphWalk",
+    "source_type": "app",
+    "skill_name": "Systems Thinking",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CyberDefend_VR",
+    "source_type": "app",
+    "skill_name": "Cybersecurity",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CyberDefend_VR",
+    "source_type": "app",
+    "skill_name": "Network Security",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CyberDefend_VR",
+    "source_type": "app",
+    "skill_name": "Incident Response",
+    "weight": 0.9
+  },
+  {
+    "source_id": "CyberDefend_VR",
+    "source_type": "app",
+    "skill_name": "Threat Analysis",
+    "weight": 0.9
+  },
+  {
+    "source_id": "EthicalHacker_VR",
+    "source_type": "app",
+    "skill_name": "Cybersecurity",
+    "weight": 0.9
+  },
+  {
+    "source_id": "EthicalHacker_VR",
+    "source_type": "app",
+    "skill_name": "Ethical Hacking",
+    "weight": 0.9
+  },
+  {
+    "source_id": "EthicalHacker_VR",
+    "source_type": "app",
+    "skill_name": "Penetration Testing",
+    "weight": 0.9
+  },
+  {
+    "source_id": "EthicalHacker_VR",
+    "source_type": "app",
+    "skill_name": "Vulnerability Assessment",
+    "weight": 0.9
   }
 ]

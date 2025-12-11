@@ -12111,5 +12111,95 @@
     "category": "domain",
     "aliases": [],
     "source_count": 1
+  },
+  {
+    "name": "Model Training",
+    "aliases": [
+      "Training ML Models",
+      "Model Fitting"
+    ],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Software Architecture",
+    "aliases": [
+      "System Architecture",
+      "Software Design"
+    ],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.95
+  },
+  {
+    "name": "Code Analysis",
+    "aliases": [
+      "Static Analysis",
+      "Code Review"
+    ],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Refactoring",
+    "aliases": [
+      "Code Refactoring",
+      "Code Improvement"
+    ],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Confidence",
+    "aliases": [
+      "Self-Confidence",
+      "Self-Assurance"
+    ],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 0.8
+  },
+  {
+    "name": "Speech Analysis",
+    "aliases": [
+      "Voice Analysis",
+      "Speech Pattern Analysis"
+    ],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.85
+  },
+  {
+    "name": "Soft Skills",
+    "aliases": [
+      "Interpersonal Skills",
+      "People Skills"
+    ],
+    "category": "soft",
+    "source_count": 1,
+    "weight": 1.0
+  },
+  {
+    "name": "Threat Analysis",
+    "aliases": [
+      "Threat Modeling",
+      "Security Threat Analysis"
+    ],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
+  },
+  {
+    "name": "Vulnerability Assessment",
+    "aliases": [
+      "Vulnerability Scanning",
+      "Security Assessment"
+    ],
+    "category": "technical",
+    "source_count": 1,
+    "weight": 0.9
   }
 ]
