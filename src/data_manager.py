@@ -71,16 +71,19 @@ class JobManager:
                 skills_file = self._get_file_info("skills.json")
 
                 stats["courses"] = {
+                    "exists": True,  # Required for frontend status indicator
                     "count": CoursesRepository().count(),
                     "last_updated": courses_file.get("last_updated"),
                     "source": "mongodb"
                 }
                 stats["vr_apps"] = {
+                    "exists": True,
                     "count": VRAppsRepository().count(),
                     "last_updated": apps_file.get("last_updated"),
                     "source": "mongodb"
                 }
                 stats["skills"] = {
+                    "exists": True,
                     "count": SkillsRepository().count(),
                     "last_updated": skills_file.get("last_updated"),
                     "source": "mongodb"
