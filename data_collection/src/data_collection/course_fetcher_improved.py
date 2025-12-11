@@ -237,8 +237,8 @@ class CMUCourseFetcherImproved:
                 # Fallback: create basic course from just the code
                 # Try to get description from catalog scrape
                 catalog_desc = course_descriptions.get(code)
-                
-                course = self._create_basic_course(code, description=catalog_desc)
+
+                course = self._create_basic_course(code, description=catalog_desc, semester=semester)
                 if course:
                     courses.append(course)
                     basic_info_count += 1
@@ -412,7 +412,7 @@ class CMUCourseFetcherImproved:
                 return None
 
             # Parse the structured content
-            course = self._parse_course_detail(markdown, course_code)
+            course = self._parse_course_detail(markdown, course_code, semester)
 
             # Additional check: if title is "Page Not Found", reject it
             if "Page Not Found" in course.title:
@@ -424,13 +424,14 @@ class CMUCourseFetcherImproved:
             # Silently fail for individual courses
             return None
 
-    def _parse_course_detail(self, markdown: str, course_code: str) -> Course:
+    def _parse_course_detail(self, markdown: str, course_code: str, semester: str = "") -> Course:
         """
         Parse course detail page content
 
         Args:
             markdown: Course page markdown content
             course_code: Course code
+            semester: Semester code (e.g., "s26", "f25")
 
         Returns:
             Course: Parsed Course object
@@ -554,7 +555,8 @@ class CMUCourseFetcherImproved:
             description=description[:500],  # Limit length
             units=units,
             prerequisites=prerequisites[:5],  # Limit number
-            learning_outcomes=learning_outcomes[:5]  # Limit number
+            learning_outcomes=learning_outcomes[:5],  # Limit number
+            semester=semester
         )
 
     def _infer_department(self, course_code: str) -> str:
@@ -564,7 +566,7 @@ class CMUCourseFetcherImproved:
 
         return self.department_mappings.get(prefix, 'CMU')
 
-    def _create_basic_course(self, course_code: str, description: str = None) -> Course:
+    def _create_basic_course(self, course_code: str, description: str = None, semester: str = "") -> Course:
         """
         Create a basic Course object when detail page scraping fails
         Used for departments without working detail pages
@@ -572,12 +574,13 @@ class CMUCourseFetcherImproved:
         Args:
             course_code: Course code like "15-112"
             description: Optional description text extracted from catalog
+            semester: Semester code (e.g., "s26", "f25")
 
         Returns:
             Course: Basic Course object with just code and inferred department
         """
         department = self._infer_department(course_code)
-        
+
         if not description:
             description = "Course description not available. This course was found in the CMU course catalog but detailed information could not be extracted."
 
@@ -588,7 +591,8 @@ class CMUCourseFetcherImproved:
             description=description,
             units=12,
             prerequisites=[],
-            learning_outcomes=[]
+            learning_outcomes=[],
+            semester=semester
         )
 
     def save_courses(self, courses: List[Course], path: str = "data/courses.json", merge: bool = True):
@@ -603,21 +607,26 @@ class CMUCourseFetcherImproved:
         import os
         os.makedirs(os.path.dirname(path), exist_ok=True)
 
-        new_courses_dict = {course.course_id: course.to_dict() for course in courses}
+        # Use course_id + semester as unique key to allow same course in different semesters
+        def make_key(course_dict):
+            cid = course_dict.get('course_id', '')
+            sem = course_dict.get('semester', '')
+            return f"{cid}_{sem}" if sem else cid
+
+        new_courses_dict = {make_key(course.to_dict()): course.to_dict() for course in courses}
 
         if merge and os.path.exists(path):
             try:
                 with open(path, 'r', encoding='utf-8') as f:
                     existing_data = json.load(f)
 
-                # Build dict of existing courses keyed by course_id
+                # Build dict of existing courses keyed by course_id + semester
                 existing_dict = {}
                 for course in existing_data:
-                    course_id = course.get('course_id')
-                    if course_id:
-                        existing_dict[course_id] = course
+                    key = make_key(course)
+                    existing_dict[key] = course
 
-                # Merge: new courses override existing ones with same ID
+                # Merge: new courses override existing ones with same ID+semester
                 merged_dict = {**existing_dict, **new_courses_dict}
                 merged_courses = list(merged_dict.values())
 

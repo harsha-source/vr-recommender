@@ -16,6 +16,7 @@ class Course:
     units: int
     prerequisites: List[str]
     learning_outcomes: List[str]
+    semester: str = ""       # "s26", "f25" - semester code for uniqueness
 
     def to_dict(self):
         """Convert to dictionary for JSON serialization"""
