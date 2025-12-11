@@ -21,7 +21,7 @@ try:
         print("   ⚠️  WARNING: Very few active skills. Graph might be empty.")
         print(f"   Skills: {retriever.active_skills}")
         
-    query = "data visualization"
+    query = "machine learning for public policy"
     print(f"\n2. Testing Query: '{query}'")
     
     # Trace Strategy 1: Direct Search
