@@ -330,15 +330,49 @@ class VRAppFetcherImproved:
 
         return unique
 
-    def save_apps(self, apps: List[VRApp], path: str = "data/vr_apps.json"):
-        """Save apps to JSON file"""
+    def save_apps(self, apps: List[VRApp], path: str = "data/vr_apps.json", merge: bool = True):
+        """
+        Save apps to JSON file with merge support (like MongoDB upsert).
+
+        Args:
+            apps: List of VRApp objects to save
+            path: File path for JSON output
+            merge: If True (default), merge with existing data. If False, overwrite completely.
+        """
         import os
         os.makedirs(os.path.dirname(path), exist_ok=True)
 
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump([app.to_dict() for app in apps], f, indent=2, ensure_ascii=False)
+        new_apps_dict = {app.app_id: app.to_dict() for app in apps}
 
-        print(f"✓ Saved {len(apps)} apps to {path}")
+        if merge and os.path.exists(path):
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    existing_data = json.load(f)
+
+                # Build dict of existing apps keyed by app_id
+                existing_dict = {}
+                for app in existing_data:
+                    app_id = app.get('app_id')
+                    if app_id:
+                        existing_dict[app_id] = app
+
+                # Merge: new apps override existing ones with same ID
+                merged_dict = {**existing_dict, **new_apps_dict}
+                merged_apps = list(merged_dict.values())
+
+                print(f"  Merged {len(new_apps_dict)} new/updated apps with {len(existing_dict)} existing")
+                print(f"  Total after merge: {len(merged_apps)} apps")
+
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"  Warning: Could not read existing file for merge ({e}). Overwriting.")
+                merged_apps = list(new_apps_dict.values())
+        else:
+            merged_apps = list(new_apps_dict.values())
+
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(merged_apps, f, indent=2, ensure_ascii=False)
+
+        print(f"✓ Saved {len(merged_apps)} apps to {path}")
 
 
 if __name__ == "__main__":

@@ -578,15 +578,49 @@ class CMUCourseFetcherImproved:
             learning_outcomes=[]
         )
 
-    def save_courses(self, courses: List[Course], path: str = "data/courses.json"):
-        """Save courses to JSON file"""
+    def save_courses(self, courses: List[Course], path: str = "data/courses.json", merge: bool = True):
+        """
+        Save courses to JSON file with merge support (like MongoDB upsert).
+
+        Args:
+            courses: List of Course objects to save
+            path: File path for JSON output
+            merge: If True (default), merge with existing data. If False, overwrite completely.
+        """
         import os
         os.makedirs(os.path.dirname(path), exist_ok=True)
 
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump([course.to_dict() for course in courses], f, indent=2, ensure_ascii=False)
+        new_courses_dict = {course.course_id: course.to_dict() for course in courses}
 
-        print(f"✓ Saved {len(courses)} courses to {path}")
+        if merge and os.path.exists(path):
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    existing_data = json.load(f)
+
+                # Build dict of existing courses keyed by course_id
+                existing_dict = {}
+                for course in existing_data:
+                    course_id = course.get('course_id')
+                    if course_id:
+                        existing_dict[course_id] = course
+
+                # Merge: new courses override existing ones with same ID
+                merged_dict = {**existing_dict, **new_courses_dict}
+                merged_courses = list(merged_dict.values())
+
+                print(f"  Merged {len(new_courses_dict)} new/updated courses with {len(existing_dict)} existing")
+                print(f"  Total after merge: {len(merged_courses)} courses")
+
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"  Warning: Could not read existing file for merge ({e}). Overwriting.")
+                merged_courses = list(new_courses_dict.values())
+        else:
+            merged_courses = list(new_courses_dict.values())
+
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(merged_courses, f, indent=2, ensure_ascii=False)
+
+        print(f"✓ Saved {len(merged_courses)} courses to {path}")
 
 
 if __name__ == "__main__":

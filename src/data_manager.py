@@ -58,21 +58,47 @@ class JobManager:
         self.data_dir = os.path.join(self.base_dir, "data_collection", "data")
 
     def get_data_stats(self) -> Dict[str, Any]:
-        """Get stats about data files and DB."""
-        stats = {
-            "courses": self._get_file_info("courses.json"),
-            "vr_apps": self._get_file_info("vr_apps.json"),
-            "skills": self._get_file_info("skills.json")
-        }
-        
+        """Get stats - MongoDB counts are primary, JSON file info as fallback."""
+        stats = {}
+
+        # Primary: Use MongoDB counts (single source of truth)
+        # This ensures UI shows accurate totals even after partial updates
         if MONGO_AVAILABLE:
             try:
-                stats["db_courses"] = CoursesRepository().count()
-                stats["db_apps"] = VRAppsRepository().count()
-                stats["db_skills"] = SkillsRepository().count()
-            except:
-                stats["db_status"] = "unavailable"
-        
+                # Get file info for last_updated timestamps
+                courses_file = self._get_file_info("courses.json")
+                apps_file = self._get_file_info("vr_apps.json")
+                skills_file = self._get_file_info("skills.json")
+
+                stats["courses"] = {
+                    "count": CoursesRepository().count(),
+                    "last_updated": courses_file.get("last_updated"),
+                    "source": "mongodb"
+                }
+                stats["vr_apps"] = {
+                    "count": VRAppsRepository().count(),
+                    "last_updated": apps_file.get("last_updated"),
+                    "source": "mongodb"
+                }
+                stats["skills"] = {
+                    "count": SkillsRepository().count(),
+                    "last_updated": skills_file.get("last_updated"),
+                    "source": "mongodb"
+                }
+                stats["db_status"] = "connected"
+            except Exception as e:
+                # Fallback to JSON if MongoDB fails
+                stats["courses"] = self._get_file_info("courses.json")
+                stats["vr_apps"] = self._get_file_info("vr_apps.json")
+                stats["skills"] = self._get_file_info("skills.json")
+                stats["db_status"] = f"error: {str(e)}"
+        else:
+            # No MongoDB - use JSON files
+            stats["courses"] = self._get_file_info("courses.json")
+            stats["vr_apps"] = self._get_file_info("vr_apps.json")
+            stats["skills"] = self._get_file_info("skills.json")
+            stats["db_status"] = "unavailable"
+
         # Add job status - always include logs array (even if empty)
         if self.current_job:
             stats["job"] = self.current_job.copy()  # Copy to avoid modifying original
