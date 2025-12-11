@@ -27,6 +27,7 @@ from vr_recommender import HeinzVRLLMRecommender, StudentQuery
 from src.logging_service import InteractionLogger
 from src.data_manager import JobManager
 from src.config_manager import ConfigManager
+from src.agent import ConversationAgent
 
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", secrets.token_hex(32))
@@ -51,6 +52,7 @@ limiter = Limiter(
 
 # Initialize services
 recommender = None
+conversation_agent = None
 interaction_logger = None
 data_manager = None
 config_manager = None
@@ -59,19 +61,24 @@ try:
     print("\n🔄 Initializing Services...")
     interaction_logger = InteractionLogger()
     print("✓ Database Logger ready")
-    
+
     config_manager = ConfigManager()
     print("✓ Config Manager ready")
-    
+
     data_manager = JobManager()
     print("✓ Data Manager ready")
-    
+
     # Requires Neo4j, ChromaDB, and OPENROUTER_API_KEY
     recommender = HeinzVRLLMRecommender()
     print("✓ RAG VR Recommender ready!")
+
+    # Initialize Conversation Agent (Tool-calling chatbot)
+    conversation_agent = ConversationAgent()
+    print("✓ Conversation Agent ready!")
 except Exception as e:
     print(f"❌ Init failed: {e}")
     recommender = None
+    conversation_agent = None
 
 # --------------------------- Auth Decorator --------------------------- #
 
@@ -149,9 +156,9 @@ def check_auth():
 
 
 @app.route("/chat", methods=["GET", "POST"])
-@limiter.limit("10 per minute") # Protect LLM cost
+@limiter.limit("10 per minute")  # Protect LLM cost
 def chat():
-    """Main chat endpoint - returns VR app recommendations"""
+    """Main chat endpoint - conversational VR app recommendations using Tool-Calling Agent"""
     if request.method == "GET":
         return jsonify(
             {
@@ -161,9 +168,9 @@ def chat():
         )
 
     print("\n" + "=" * 70)
-    print("📨 NEW CHAT REQUEST")
+    print("📨 NEW CHAT REQUEST (Agent Mode)")
     print("=" * 70)
-    
+
     start_time = time.time()
 
     # 1. Identify User
@@ -177,9 +184,6 @@ def chat():
     try:
         data = request.get_json(silent=True) or {}
         message = (data.get("message") or "").strip()
-        
-        # Determine session (optional, for now just re-use user_id or generate new per chat load)
-        # Simple approach: We consider this a single session unless the frontend sends a session ID.
         session_id = data.get("session_id") or user_id
 
         print(f"💬 Message: '{message}'")
@@ -187,48 +191,31 @@ def chat():
         if not message:
             return jsonify({"error": "Message required", "type": "error"}), 400
 
-        if not recommender:
+        if not conversation_agent:
             return jsonify(
                 {
-                    "response": "Recommender unavailable. Please check OPENROUTER_API_KEY configuration.",
+                    "response": "Conversation Agent unavailable. Please check configuration.",
                     "type": "error",
                 }
             )
 
-        # Parse simple intent
-        intent = parse_user_intent(message)
-        print(f"🎯 Intent: {intent}")
+        # 2. Process message via Conversation Agent
+        print("🤖 Processing via Conversation Agent...")
+        result = conversation_agent.process_message(session_id, user_id, message)
 
-        response_text = ""
-        recommended_apps = []
-        
-        if intent == "greeting":
-            response_text = generate_greeting_response()
-        
-        elif intent == "help":
-            response_text = generate_help_response()
+        response_text = result.get("response", "I'm having trouble responding.")
+        tool_used = result.get("tool_used")
+        recommended_apps = result.get("apps", [])
 
-        else:
-            # Recommendation path
-            print("→ Extracting query data (hints for LLM)…")
-            query_data = extract_query_data(message)
-            interests = query_data.get("interests", [])
-            background = query_data.get("background", "Heinz College student")
-
-            student_query = StudentQuery(query=message, interests=interests, background=background)
-
-            print("\n🔄 Calling recommender.generate_recommendation()…")
-            result = recommender.generate_recommendation(student_query)
-
-            recommended_apps = result.get("vr_apps", [])
-            print(f"✓ Got {len(recommended_apps)} VR apps")
-            
-            response_text = format_vr_response(result)
+        if tool_used:
+            print(f"🔧 Tool used: {tool_used}")
+        print(f"✓ Response generated ({len(recommended_apps)} apps)")
 
         # Calculate Latency
         latency_ms = round((time.time() - start_time) * 1000, 2)
 
-        # 2. Log Interaction
+        # 3. Log Interaction
+        intent = "search" if tool_used else "conversation"
         if interaction_logger:
             interaction_logger.log_interaction(
                 user_id=user_id,
@@ -237,17 +224,27 @@ def chat():
                 response=response_text,
                 intent=intent,
                 recommended_apps=recommended_apps,
-                metadata={"latency_ms": latency_ms, "source": "web_chat"}
+                metadata={
+                    "latency_ms": latency_ms,
+                    "source": "web_chat",
+                    "tool_used": tool_used,
+                    "agent_mode": True
+                }
             )
 
-        # 3. Send Response (with Cookie)
+        # 4. Send Response (with Cookie)
         print("✅ Sending response\n")
-        json_resp = jsonify({"response": response_text, "type": "success", "user_id": user_id})
+        json_resp = jsonify({
+            "response": response_text,
+            "type": "success",
+            "user_id": user_id,
+            "tool_used": tool_used
+        })
         resp = make_response(json_resp)
-        
+
         # Set cookie to persist user identity for 30 days
-        resp.set_cookie('user_id', user_id, max_age=60*60*24*30, samesite='Lax')
-        
+        resp.set_cookie('user_id', user_id, max_age=60 * 60 * 24 * 30, samesite='Lax')
+
         return resp
 
     except Exception as e:
@@ -377,39 +374,43 @@ def get_config():
 @login_required
 def update_config():
     """Update system configuration."""
-    global recommender
-    
+    global recommender, conversation_agent
+
     if not config_manager:
         return jsonify({"error": "Config Manager unavailable"}), 503
-        
+
     data = request.get_json(silent=True) or {}
-    
+
     updates = {}
     for k, v in data.items():
         # Ignore masked values (if they contain ***)
-        if "*****" in str(v): 
+        if "*****" in str(v):
             continue
         updates[k] = v
-        
+
     if not updates:
         return jsonify({"message": "No changes detected"}), 200
-        
+
     success = config_manager.set_bulk(updates)
-    
+
     if success:
         # Check if LLM settings changed
         if "OPENROUTER_API_KEY" in updates or "OPENROUTER_MODEL" in updates:
-            print("♻️ LLM Config changed. Reloading recommender...")
+            print("♻️ LLM Config changed. Reloading services...")
             try:
                 # Reload recommender
                 recommender = HeinzVRLLMRecommender()
                 print("✓ Recommender reloaded successfully")
+
+                # Reload conversation agent
+                conversation_agent = ConversationAgent()
+                print("✓ Conversation Agent reloaded successfully")
             except Exception as e:
-                print(f"❌ Error reloading recommender: {e}")
+                print(f"❌ Error reloading services: {e}")
                 return jsonify({"success": True, "warning": f"Config saved but reload failed: {e}"}), 200
 
         return jsonify({"success": True, "message": "Configuration updated"})
-    
+
     return jsonify({"error": "Failed to update configuration"}), 500
 
 @app.route("/admin/config", methods=["GET"])

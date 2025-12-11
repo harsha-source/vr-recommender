@@ -57,3 +57,52 @@ class ChatSessionsRepository:
             {"_id": session_id},
             {"$set": {"ended_at": datetime.utcnow()}}
         )
+
+    def update_metadata(self, session_id: str, metadata: Dict):
+        """
+        Update session metadata fields.
+
+        Args:
+            session_id: Session identifier
+            metadata: Dict of fields to update
+        """
+        self.collection.update_one(
+            {"_id": session_id},
+            {
+                "$set": {**metadata, "updated_at": datetime.utcnow()}
+            }
+        )
+
+    def add_tool_call(
+        self,
+        session_id: str,
+        tool_name: str,
+        tool_args: Dict,
+        tool_result: Dict
+    ):
+        """
+        Log a tool call for debugging/analytics.
+
+        Args:
+            session_id: Session identifier
+            tool_name: Name of the tool called
+            tool_args: Arguments passed to the tool
+            tool_result: Result returned by the tool
+        """
+        tool_call_record = {
+            "tool_name": tool_name,
+            "arguments": tool_args,
+            "result_summary": {
+                "apps_count": len(tool_result.get("apps", [])),
+                "success": "error" not in tool_result
+            },
+            "timestamp": datetime.utcnow()
+        }
+
+        self.collection.update_one(
+            {"_id": session_id},
+            {
+                "$push": {"tool_calls": tool_call_record},
+                "$set": {"updated_at": datetime.utcnow()}
+            }
+        )

@@ -25,6 +25,10 @@ from data_collection.vr_app_fetcher_improved import VRAppFetcherImproved
 from skill_extraction.pipeline import SkillExtractionPipeline
 from knowledge_graph.builder import KnowledgeGraphBuilder
 
+# Vector store for ChromaDB rebuilding
+sys.path.insert(0, os.path.join(project_root, "vector_store", "src"))
+from vector_store.indexer import VectorIndexer
+
 from src.config_manager import ConfigManager
 
 # Import DB Repositories
@@ -181,20 +185,34 @@ class JobManager:
             raise e
 
     def _build_graph(self, params: Dict[str, Any]):
-        """Run knowledge graph builder."""
+        """Run knowledge graph builder AND rebuild ChromaDB vector index."""
         clear_db = params.get("clear", True)
         self._log(f"Starting Graph Build (Clear DB: {clear_db})...")
-        
+
         try:
-            # Inject logger
+            # Step 1: Build Neo4j Knowledge Graph
             builder = KnowledgeGraphBuilder(logger=self._log)
-            
+
             self._log("Building graph in Neo4j...")
-            # Builder now prefers MongoDB automatically
             builder.build(data_dir=self.data_dir, clear=clear_db)
-            
-            self._log("Graph build complete.")
-            
+
+            self._log("✓ Neo4j graph build complete.")
+
+            # Step 2: Rebuild ChromaDB Vector Index
+            self._log("Rebuilding ChromaDB vector index...")
+            skills_path = os.path.join(self.data_dir, "skills.json")
+
+            if os.path.exists(skills_path):
+                # Use the same path as RAG service expects
+                chroma_path = os.path.join(self.base_dir, "vector_store", "data", "chroma")
+                indexer = VectorIndexer(persist_dir=chroma_path)
+                indexer.build_index(skills_path)
+                self._log(f"✓ ChromaDB rebuilt with skills from {skills_path}")
+            else:
+                self._log(f"⚠ Skills file not found at {skills_path}, skipping ChromaDB rebuild")
+
+            self._log("✓ Full rebuild complete (Neo4j + ChromaDB).")
+
         except Exception as e:
             raise e
 
