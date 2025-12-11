@@ -107,7 +107,7 @@ class CMUCourseFetcherImproved:
             "62": "College of Fine Arts",
         }
 
-    def fetch_courses(self, max_courses: int = 100, use_extracted_codes: bool = True, department: str = None, semester: str = "f25") -> List[Course]:
+    def fetch_courses(self, max_courses: int = 100, use_extracted_codes: bool = True, department: str = None, semester: str = None) -> List[Course]:
         """
         Fetch CMU courses from ALL departments or a specific department
 
@@ -121,11 +121,24 @@ class CMUCourseFetcherImproved:
             max_courses: Maximum number of courses to fetch (set to 999999 for ALL)
             use_extracted_codes: If True, load course codes from all_cmu_courses.txt file
             department: Optional department name to filter by (e.g., "School of Computer Science")
-            semester: Semester code for detail pages (e.g., "f25", "s26")
+            semester: Semester code for detail pages (e.g., "f25", "s26"). Auto-detected if None.
 
         Returns:
             List[Course]: List of Course objects
         """
+        # Auto-detect semester if not provided
+        if semester is None:
+            try:
+                from src.semester_utils import get_upcoming_semester
+                semester = get_upcoming_semester()
+            except ImportError:
+                # Fallback if running standalone
+                from datetime import datetime
+                today = datetime.now()
+                year = today.year % 100
+                month = today.month
+                semester = f"s{year + 1}" if month >= 12 else (f"f{year}" if month >= 6 else f"s{year}")
+
         self.logger(f"Fetching CMU courses (max: {max_courses if max_courses < 999999 else 'ALL'})...")
         if department:
             self.logger(f"Filter: Department = '{department}'")

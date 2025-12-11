@@ -247,9 +247,11 @@ class JobManager:
 
     def _update_courses(self, params: Dict[str, Any]):
         """Update course data."""
+        from src.semester_utils import get_upcoming_semester
+
         limit = params.get("limit", 100) # Default limit
         department = params.get("department")
-        semester = params.get("semester", "f25")
+        semester = params.get("semester") or get_upcoming_semester()  # Auto-detect if not provided
         
         self._log(f"Initializing Course Fetcher (Limit: {limit}, Dept: {department}, Term: {semester})...")
         

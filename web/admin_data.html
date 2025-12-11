@@ -114,10 +114,8 @@
                         </div>
                         <div class="col-md-6">
                             <select class="form-select form-select-sm" id="course-semester">
-                                <option value="f25" selected>Fall 2025 (f25)</option>
-                                <option value="s25">Spring 2025 (s25)</option>
-                                <option value="s26">Spring 2026 (s26)</option>
-                                <option value="f24">Fall 2024 (f24)</option>
+                                <!-- Options loaded dynamically from /api/admin/semesters -->
+                                <option value="">Loading...</option>
                             </select>
                         </div>
                     </div>
@@ -253,6 +251,7 @@
             const data = await res.json();
             if (data.is_admin) {
                 document.getElementById('auth-overlay').style.display = 'none';
+                loadSemesterOptions(); // Load dynamic semester options
                 fetchStatus(); // Start loading data
                 setInterval(fetchStatus, 2000); // Start polling
             } else {
@@ -294,6 +293,35 @@
 
 
     // --- Data Logic ---
+
+    async function loadSemesterOptions() {
+        try {
+            const res = await fetch('/api/admin/semesters');
+            if (!res.ok) throw new Error('Failed to load semesters');
+            const data = await res.json();
+
+            const select = document.getElementById('course-semester');
+            select.innerHTML = '';
+
+            data.options.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.label;
+                if (opt.selected) option.selected = true;
+                select.appendChild(option);
+            });
+        } catch (e) {
+            console.error('Failed to load semesters:', e);
+            // Fallback - generate based on current date
+            const now = new Date();
+            const year = now.getFullYear() % 100;
+            const month = now.getMonth() + 1;
+            const defaultSem = month >= 12 ? `s${year + 1}` : (month >= 6 ? `f${year}` : `s${year}`);
+
+            const select = document.getElementById('course-semester');
+            select.innerHTML = `<option value="${defaultSem}" selected>${defaultSem}</option>`;
+        }
+    }
 
     async function fetchStatus() {
         try {

@@ -393,6 +393,21 @@ def process_graph():
         return jsonify(result), 409
     return jsonify(result), 202
 
+@app.route("/api/admin/semesters", methods=["GET"])
+@limiter.exempt
+@login_required
+def get_semesters():
+    """Get available semester options with auto-detected default."""
+    from src.semester_utils import get_semester_options, get_upcoming_semester
+
+    options = get_semester_options()
+    current = get_upcoming_semester()
+
+    return jsonify({
+        "options": [{"value": v, "label": l, "selected": s} for v, l, s in options],
+        "current": current
+    })
+
 @app.route("/api/admin/config", methods=["GET"])
 @limiter.exempt
 @login_required
