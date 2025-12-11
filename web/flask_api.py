@@ -50,6 +50,48 @@ limiter = Limiter(
     storage_uri=storage_uri
 )
 
+# --------------------------- ChromaDB Auto-Recovery --------------------------- #
+
+def _ensure_chromadb_initialized():
+    """
+    Startup check: If ChromaDB is empty, automatically rebuild from skills.json.
+    This ensures the system recovers gracefully after Docker restarts.
+    """
+    try:
+        # Add vector_store/src to path for imports (same as data_manager.py)
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        vector_store_src = os.path.join(base_dir, "vector_store", "src")
+        if vector_store_src not in sys.path:
+            sys.path.insert(0, vector_store_src)
+
+        from vector_store.indexer import VectorIndexer
+
+        chroma_path = os.path.join(base_dir, "vector_store", "data", "chroma")
+        skills_path = os.path.join(base_dir, "data_collection", "data", "skills.json")
+
+        indexer = VectorIndexer(persist_dir=chroma_path)
+        stats = indexer.get_stats()
+        total_skills = stats.get('total_skills', 0)
+
+        if total_skills == 0:
+            if os.path.exists(skills_path):
+                print("[Startup] ⚠ ChromaDB empty, rebuilding from skills.json...")
+                indexer.build_index(skills_path, clear_existing=False)
+                # Verify rebuild
+                new_stats = indexer.get_stats()
+                print(f"[Startup] ✓ ChromaDB rebuilt: {new_stats.get('total_skills', 0)} skills indexed")
+            else:
+                print(f"[Startup] ⚠ ChromaDB empty and skills.json not found at {skills_path}")
+        else:
+            print(f"[Startup] ✓ ChromaDB ready: {total_skills} skills indexed")
+    except Exception as e:
+        print(f"[Startup] ⚠ ChromaDB check failed: {e}")
+        import traceback
+        traceback.print_exc()
+
+# Run ChromaDB check before initializing services
+_ensure_chromadb_initialized()
+
 # Initialize services
 recommender = None
 conversation_agent = None
