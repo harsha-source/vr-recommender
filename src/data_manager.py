@@ -252,7 +252,9 @@ class JobManager:
             # Sync to MongoDB
             if MONGO_AVAILABLE:
                 self._log("Syncing courses to MongoDB...")
-                count = CoursesRepository().bulk_upsert(courses)
+                # Convert Course objects to dicts if needed
+                course_dicts = [c.to_dict() if hasattr(c, 'to_dict') else c for c in courses]
+                count = CoursesRepository().bulk_upsert(course_dicts)
                 self._log(f"✓ Synced {count} courses to MongoDB")
             
         except Exception as e:
@@ -285,7 +287,9 @@ class JobManager:
             # Sync to MongoDB
             if MONGO_AVAILABLE:
                 self._log("Syncing VR apps to MongoDB...")
-                count = VRAppsRepository().bulk_upsert(apps)
+                # Convert VRApp objects to dicts if needed
+                app_dicts = [a.to_dict() if hasattr(a, 'to_dict') else a for a in apps]
+                count = VRAppsRepository().bulk_upsert(app_dicts)
                 self._log(f"✓ Synced {count} apps to MongoDB")
             
         except Exception as e:
