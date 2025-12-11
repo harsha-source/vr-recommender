@@ -2,24 +2,42 @@
 
 import json
 import os
+import sys
 from typing import List, Dict
 from openai import OpenAI
+
+# Add parent paths to import ConfigManager
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 
 class SkillExtractor:
     """Extracts skills from text using OpenRouter LLM"""
 
-    def __init__(self):
-        """Initialize OpenRouter client with API key"""
-        api_key = os.getenv(
-            "OPENROUTER_API_KEY",
-            "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"
-        )
+    def __init__(self, api_key: str = None, model: str = None):
+        """Initialize OpenRouter client with API key from ConfigManager or parameter"""
+        # Try to get API key from: 1) parameter, 2) ConfigManager, 3) env var
+        if not api_key:
+            try:
+                from src.config_manager import ConfigManager
+                config = ConfigManager()
+                api_key = config.openrouter_api_key
+                model = model or config.openrouter_model
+            except Exception:
+                pass
+
+        if not api_key:
+            api_key = os.getenv("OPENROUTER_API_KEY")
+
+        if not api_key:
+            raise ValueError("OpenRouter API key not configured. Set OPENROUTER_API_KEY or configure in Admin System Config.")
+
         self.client = OpenAI(
             api_key=api_key,
             base_url="https://openrouter.ai/api/v1"
         )
-        self.model = os.getenv("OPENROUTER_MODEL", "qwen/qwen3-next-80b-a3b-instruct")
+        self.model = model or os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-001")
 
     def extract_from_text(self, text: str, source_type: str = "course") -> List[Dict]:
         """
