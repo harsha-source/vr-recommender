@@ -15,5 +15,4 @@ chromadb>=0.4.0
 neo4j>=5.0.0
 
 # Data collection APIs
-firecrawl-py>=0.0.1
 tavily-python>=0.3.0

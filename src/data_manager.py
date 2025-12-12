@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.join(project_root, "knowledge_graph", "src"))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from data_collection.course_fetcher_improved import CMUCourseFetcherImproved
+from data_collection.soc_course_fetcher import SOCCourseFetcher
 from data_collection.vr_app_fetcher_improved import VRAppFetcherImproved
 from skill_extraction.pipeline import SkillExtractionPipeline
 from knowledge_graph.builder import KnowledgeGraphBuilder
@@ -246,35 +246,33 @@ class JobManager:
             raise e
 
     def _update_courses(self, params: Dict[str, Any]):
-        """Update course data."""
+        """Update course data using SOC (Schedule of Classes) system."""
         from src.semester_utils import get_upcoming_semester
 
-        limit = params.get("limit", 100) # Default limit
+        limit = params.get("limit", 100)
         department = params.get("department")
-        semester = params.get("semester") or get_upcoming_semester()  # Auto-detect if not provided
-        
-        self._log(f"Initializing Course Fetcher (Limit: {limit}, Dept: {department}, Term: {semester})...")
-        
+        semester = params.get("semester") or get_upcoming_semester()
+
+        self._log(f"Initializing SOC Course Fetcher (Limit: {limit}, Dept: {department}, Term: {semester})...")
+
         try:
-            # Inject logger
-            config = ConfigManager()
-            fetcher = CMUCourseFetcherImproved(logger=self._log, api_key=config.firecrawl_api_key)
-            
-            # Use the fetcher
-            self._log("Fetching courses from CMU catalog...")
+            # Use new SOC-based fetcher (no Firecrawl needed!)
+            fetcher = SOCCourseFetcher(logger=self._log)
+
+            self._log("Fetching courses from CMU SOC system...")
             courses = fetcher.fetch_courses(
-                max_courses=limit, 
-                use_extracted_codes=True, 
+                max_courses=limit,
                 department=department,
-                semester=semester
+                semester=semester,
+                fetch_details=True
             )
-            
+
             if not courses:
                 self._log("⚠ No courses found.")
                 return
-                
+
             self._log(f"Fetched {len(courses)} courses.")
-            
+
             # Save JSON
             save_path = os.path.join(self.data_dir, "courses.json")
             fetcher.save_courses(courses, path=save_path)
@@ -283,11 +281,10 @@ class JobManager:
             # Sync to MongoDB
             if MONGO_AVAILABLE:
                 self._log("Syncing courses to MongoDB...")
-                # Convert Course objects to dicts if needed
                 course_dicts = [c.to_dict() if hasattr(c, 'to_dict') else c for c in courses]
                 count = CoursesRepository().bulk_upsert(course_dicts)
                 self._log(f"✓ Synced {count} courses to MongoDB")
-            
+
         except Exception as e:
             raise e
 

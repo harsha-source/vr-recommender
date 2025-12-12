@@ -83,10 +83,6 @@ class ConfigManager:
         return self.get("OPENROUTER_MODEL", "google/gemini-2.0-flash-001")
 
     @property
-    def firecrawl_api_key(self) -> Optional[str]:
-        return self.get("FIRECRAWL_API_KEY")
-
-    @property
     def tavily_api_key(self) -> Optional[str]:
         return self.get("TAVILY_API_KEY")
         

@@ -34,9 +34,9 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", secrets.token_hex(32))
 CORS(app, supports_credentials=True)
 
 # --------------------------- Rate Limiter Setup --------------------------- #
-# Use Redis if available (env var), otherwise fall back to memory
-redis_url = os.getenv("REDIS_URL")
-storage_uri = redis_url if redis_url else "memory://"
+# Use in-memory storage for rate limiting (no Redis dependency)
+# This simplifies deployment and eliminates Redis-related startup failures
+storage_uri = "memory://"
 
 print("\n" + "=" * 70)
 print("INITIALIZING HEINZ RAG VR APP RECOMMENDER")
@@ -417,8 +417,8 @@ def get_config():
         return jsonify({"error": "Config Manager unavailable"}), 503
 
     # Define keys we manage
-    managed_keys = ["OPENROUTER_API_KEY", "OPENROUTER_MODEL", "FIRECRAWL_API_KEY", "TAVILY_API_KEY", "MONGODB_URI", "NEO4J_URI"]
-    sensitive_keys = ["OPENROUTER_API_KEY", "FIRECRAWL_API_KEY", "TAVILY_API_KEY", "MONGODB_URI", "NEO4J_URI"]
+    managed_keys = ["OPENROUTER_API_KEY", "OPENROUTER_MODEL", "TAVILY_API_KEY", "MONGODB_URI", "NEO4J_URI"]
+    sensitive_keys = ["OPENROUTER_API_KEY", "TAVILY_API_KEY", "MONGODB_URI", "NEO4J_URI"]
     
     response_config = {}
     

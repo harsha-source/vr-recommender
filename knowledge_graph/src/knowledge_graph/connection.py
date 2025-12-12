@@ -8,16 +8,12 @@ class Neo4jConnection:
     """Manages Neo4j database connection and queries"""
 
     def __init__(self):
-        """Initialize Neo4j connection with environment variables"""
+        """Initialize Neo4j connection (no authentication)"""
         self.uri = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-        self.user = os.getenv("NEO4J_USER", "neo4j")
-        self.password = os.getenv("NEO4J_PASSWORD", "password")
 
         try:
-            self.driver = GraphDatabase.driver(
-                self.uri,
-                auth=(self.user, self.password)
-            )
+            # Neo4j configured with NEO4J_AUTH=none for plug-and-play deployment
+            self.driver = GraphDatabase.driver(self.uri)
             print(f"✓ Connected to Neo4j at {self.uri}")
         except Exception as e:
             print(f"✗ Failed to connect to Neo4j: {e}")

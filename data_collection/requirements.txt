@@ -1,8 +1,0 @@
-# Stage 1 - Data Collection Module Dependencies
-
-# External API clients
-firecrawl-py>=0.0.1
-tavily-python>=0.3.0
-
-# Environment configuration
-python-dotenv>=1.0.0
