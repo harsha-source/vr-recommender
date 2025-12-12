@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify, send_file, make_response, session, re
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_limiter.errors import RateLimitExceeded
 from dotenv import load_dotenv
 import os
 import sys
@@ -49,6 +50,20 @@ limiter = Limiter(
     default_limits=["200 per day", "50 per hour"],
     storage_uri=storage_uri
 )
+
+# Custom error handler for rate limit exceeded
+@app.errorhandler(RateLimitExceeded)
+def handle_rate_limit(e):
+    """Return friendly JSON response for rate limit errors."""
+    # e.description contains the limit that was exceeded (e.g., "10 per 1 minute")
+    limit_info = str(e.description) if e.description else "rate limit"
+
+    return jsonify({
+        "error": "rate_limit_exceeded",
+        "message": f"You've exceeded the limit of {limit_info}. Please wait and try again.",
+        "limit": limit_info,
+        "type": "rate_limit"
+    }), 429
 
 # --------------------------- ChromaDB Auto-Recovery --------------------------- #
 
