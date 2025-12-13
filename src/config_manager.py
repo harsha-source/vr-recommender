@@ -93,3 +93,25 @@ class ConfigManager:
     @property
     def neo4j_uri(self) -> Optional[str]:
         return self.get("NEO4J_URI")
+
+    # -- Rate Limit Getters (Hot-Reload Support) --
+
+    @property
+    def default_daily_limit(self) -> str:
+        """Default daily rate limit for all endpoints."""
+        return self.get("RATE_LIMIT_DEFAULT_DAILY", "200 per day")
+
+    @property
+    def default_hourly_limit(self) -> str:
+        """Default hourly rate limit for all endpoints."""
+        return self.get("RATE_LIMIT_DEFAULT_HOURLY", "50 per hour")
+
+    @property
+    def chat_rate_limit(self) -> str:
+        """Rate limit for /chat endpoint (protects LLM costs)."""
+        return self.get("RATE_LIMIT_CHAT", "10 per minute")
+
+    @property
+    def login_rate_limit(self) -> str:
+        """Rate limit for /api/auth/login (prevents brute force)."""
+        return self.get("RATE_LIMIT_LOGIN", "5 per minute")

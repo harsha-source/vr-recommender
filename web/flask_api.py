@@ -39,6 +39,35 @@ CORS(app, supports_credentials=True)
 # This simplifies deployment and eliminates Redis-related startup failures
 storage_uri = "memory://"
 
+# Global reference for config_manager (initialized later, used by limit functions)
+config_manager = None
+
+# --------------------------- Dynamic Rate Limit Functions --------------------------- #
+# These functions are called by Flask-Limiter on EVERY request to get the current limit.
+# This enables hot-reload of rate limits without restarting the server.
+# Note: config_manager is initialized later but these functions are only CALLED at request time.
+
+def get_default_limits():
+    """Return default rate limits as a list. Called on each request."""
+    if config_manager:
+        return [
+            config_manager.default_daily_limit,
+            config_manager.default_hourly_limit
+        ]
+    return ["200 per day", "50 per hour"]  # Fallback
+
+def get_chat_limit():
+    """Return chat endpoint rate limit. Called on each request."""
+    if config_manager:
+        return config_manager.chat_rate_limit
+    return "10 per minute"  # Fallback
+
+def get_login_limit():
+    """Return login endpoint rate limit. Called on each request."""
+    if config_manager:
+        return config_manager.login_rate_limit
+    return "5 per minute"  # Fallback
+
 print("\n" + "=" * 70)
 print("INITIALIZING HEINZ RAG VR APP RECOMMENDER")
 print(f"Rate Limiter Storage: {storage_uri}")
@@ -47,9 +76,10 @@ print("=" * 70)
 limiter = Limiter(
     key_func=get_remote_address,
     app=app,
-    default_limits=["200 per day", "50 per hour"],
+    default_limits=["200 per day", "50 per hour"],  # Static defaults (Flask-Limiter doesn't support callable here)
     storage_uri=storage_uri
 )
+# Note: Default limits are static. Endpoint-specific limits (chat, login) support hot-reload via callables.
 
 # Custom error handler for rate limit exceeded
 @app.errorhandler(RateLimitExceeded)
@@ -112,7 +142,7 @@ recommender = None
 conversation_agent = None
 interaction_logger = None
 data_manager = None
-config_manager = None
+# config_manager is already declared above for dynamic rate limit functions
 
 try:
     print("\n🔄 Initializing Services...")
@@ -158,7 +188,7 @@ def home():
     """Serve chatbot HTML (if present) or a simple status JSON."""
     print("\n📄 GET / - Serving chatbot")
     try:
-        return send_file("vr-chatbot-embed.html", mimetype="text/html")
+        return send_file("chat_interface.html", mimetype="text/html")
     except Exception as e:
         return jsonify(
             {
@@ -183,7 +213,7 @@ def health():
     )
 
 @app.route("/api/auth/login", methods=["POST"])
-@limiter.limit("5 per minute") # Prevent brute force
+@limiter.limit(get_login_limit)  # Dynamic - hot-reload from ConfigManager
 def login():
     """Admin login endpoint"""
     data = request.get_json(silent=True) or {}
@@ -213,7 +243,7 @@ def check_auth():
 
 
 @app.route("/chat", methods=["GET", "POST"])
-@limiter.limit("10 per minute")  # Protect LLM cost
+@limiter.limit(get_chat_limit)  # Dynamic - hot-reload from ConfigManager
 def chat():
     """Main chat endpoint - conversational VR app recommendations using Tool-Calling Agent"""
     if request.method == "GET":
@@ -494,6 +524,100 @@ def update_config():
         return jsonify({"success": True, "message": "Configuration updated"})
 
     return jsonify({"error": "Failed to update configuration"}), 500
+
+
+# --------------------------- Rate Limit API Endpoints --------------------------- #
+
+# Note: Only endpoint-specific limits support hot-reload (via callable decorators).
+# Default limits (200/day, 50/hour) are static and defined in Limiter constructor.
+RATE_LIMIT_KEYS = {
+    "RATE_LIMIT_CHAT": {
+        "label": "Chat Endpoint Limit",
+        "description": "Maximum chat requests per minute (protects LLM API costs)",
+        "default": "10 per minute",
+        "example": "10 per minute"
+    },
+    "RATE_LIMIT_LOGIN": {
+        "label": "Login Endpoint Limit",
+        "description": "Maximum login attempts per minute (prevents brute force)",
+        "default": "5 per minute",
+        "example": "5 per minute"
+    }
+}
+
+@app.route("/api/admin/ratelimits", methods=["GET"])
+@limiter.exempt
+@login_required
+def get_ratelimits():
+    """Get current rate limit configuration."""
+    if not config_manager:
+        return jsonify({"error": "Config Manager unavailable"}), 503
+
+    result = {}
+    for key, meta in RATE_LIMIT_KEYS.items():
+        result[key] = {
+            "value": config_manager.get(key, meta["default"]),
+            "label": meta["label"],
+            "description": meta["description"],
+            "default": meta["default"],
+            "example": meta["example"]
+        }
+
+    return jsonify(result)
+
+@app.route("/api/admin/ratelimits", methods=["POST"])
+@limiter.exempt
+@login_required
+def update_ratelimits():
+    """Update rate limit configuration. Changes take effect immediately."""
+    if not config_manager:
+        return jsonify({"error": "Config Manager unavailable"}), 503
+
+    data = request.get_json(silent=True) or {}
+
+    # Validate rate limit format (basic validation)
+    import re
+    rate_limit_pattern = re.compile(r'^\d+\s+per\s+(second|minute|hour|day|month|year)$', re.IGNORECASE)
+
+    updates = {}
+    errors = []
+
+    for key in RATE_LIMIT_KEYS.keys():
+        if key in data:
+            value = data[key].strip()
+            if rate_limit_pattern.match(value):
+                updates[key] = value
+            else:
+                errors.append(f"Invalid format for {key}: '{value}'. Expected: 'N per minute/hour/day'")
+
+    if errors:
+        return jsonify({"error": "Validation failed", "details": errors}), 400
+
+    if not updates:
+        return jsonify({"message": "No changes detected"}), 200
+
+    success = config_manager.set_bulk(updates)
+
+    if success:
+        print(f"[Rate Limits] Updated: {list(updates.keys())}")
+        return jsonify({
+            "success": True,
+            "message": "Rate limits updated. Changes are effective immediately.",
+            "updated": list(updates.keys())
+        })
+
+    return jsonify({"error": "Failed to update rate limits"}), 500
+
+
+@app.route("/admin/ratelimits", methods=["GET"])
+def admin_ratelimits_page():
+    """Serve the Rate Limits Configuration page."""
+    print("\n[Admin] GET /admin/ratelimits - Serving Rate Limits page")
+    try:
+        return send_file("admin_ratelimits.html", mimetype="text/html")
+    except Exception as e:
+        return jsonify({"error": f"Rate Limits page not found: {e}"}), 404
+
 
 @app.route("/admin/config", methods=["GET"])
 def admin_config_page():
