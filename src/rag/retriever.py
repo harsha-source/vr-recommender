@@ -29,12 +29,21 @@ class RAGRetriever:
         # Resolve absolute path to vector store
         current_dir = os.path.dirname(os.path.abspath(__file__))
         # Path: src/rag/ -> ../../vector_store/data/chroma
-        persist_dir = os.path.abspath(os.path.join(current_dir, "../../vector_store/data/chroma"))
-        
-        self.skill_search = SkillSearchService(persist_dir=persist_dir)
+        self.persist_dir = os.path.abspath(os.path.join(current_dir, "../../vector_store/data/chroma"))
+
+        self.skill_search = SkillSearchService(persist_dir=self.persist_dir)
         self.graph = Neo4jConnection()
         self.active_skills = self._get_active_skills()
         print(f"   [RAG] Loaded {len(self.active_skills)} active skills (skills with VR Apps)")
+
+    def reload(self):
+        """Reload the retriever after graph/vector store rebuild."""
+        print("   [RAG] Reloading retriever...")
+        # Reload vector store (ChromaDB)
+        self.skill_search = SkillSearchService(persist_dir=self.persist_dir)
+        # Refresh active skills from Neo4j
+        self.active_skills = self._get_active_skills()
+        print(f"   [RAG] Reloaded: {len(self.active_skills)} active skills")
 
     def _get_active_skills(self) -> List[str]:
         """Fetch all skills that are actually connected to VR Apps."""

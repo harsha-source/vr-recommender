@@ -46,16 +46,19 @@ except ImportError:
 
 class JobManager:
     """Manages background data update jobs."""
-    
+
     def __init__(self):
         self.current_job: Optional[Dict[str, Any]] = None
         self.executor = ThreadPoolExecutor(max_workers=1)
         self.logs: List[str] = []
         self.log_lock = threading.Lock()
-        
+
         # Define data paths
         self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.data_dir = os.path.join(self.base_dir, "data_collection", "data")
+
+        # Callback for graph rebuild (set from flask_api.py)
+        self.on_graph_rebuild_complete = None
 
     def get_data_stats(self) -> Dict[str, Any]:
         """Get stats - MongoDB counts are primary, JSON file info as fallback."""
@@ -176,9 +179,17 @@ class JobManager:
                 self._extract_skills(params)
             elif job_type == "graph":
                 self._build_graph(params)
+                # Trigger RAG reload callback after graph rebuild
+                if self.on_graph_rebuild_complete:
+                    self._log("Triggering RAG service reload...")
+                    try:
+                        self.on_graph_rebuild_complete()
+                        self._log("✓ RAG service reloaded successfully")
+                    except Exception as e:
+                        self._log(f"⚠ RAG reload failed: {e}")
             else:
                 self._log(f"Unknown job type: {job_type}")
-                
+
             self.current_job["status"] = "COMPLETED"
             self._log("Job completed successfully.")
             

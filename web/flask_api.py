@@ -162,6 +162,10 @@ try:
     # Initialize Conversation Agent (Tool-calling chatbot)
     conversation_agent = ConversationAgent()
     print("✓ Conversation Agent ready!")
+
+    # Wire callback: When graph rebuild completes, reload RAG service
+    data_manager.on_graph_rebuild_complete = conversation_agent.reload_rag
+    print("✓ Graph rebuild callback registered")
 except Exception as e:
     print(f"❌ Init failed: {e}")
     recommender = None

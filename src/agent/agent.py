@@ -309,6 +309,13 @@ class ConversationAgent:
         session.add_message("assistant", response)
         return {"response": response, "tool_used": None, "apps": []}
 
+    def reload_rag(self):
+        """Reload RAG service after graph rebuild."""
+        if self.rag_service:
+            print("[Agent] Reloading RAG service...")
+            self.rag_service.reload()
+            print("[Agent] RAG service reloaded successfully")
+
     def close(self):
         """Close service connections."""
         if self.rag_service:

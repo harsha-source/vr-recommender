@@ -69,6 +69,10 @@ class RAGService:
             total_matches=len(candidates)
         )
 
+    def reload(self):
+        """Reload the service after graph/vector store rebuild."""
+        self.retriever.reload()
+
     def close(self):
         """Close service connections."""
         self.retriever.close()
